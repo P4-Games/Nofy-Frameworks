@@ -1,16 +1,23 @@
 ![](https://img.shields.io/badge/NextJs-informational?style=flat&logo=next&logoColor=white&color=6aa6f8)
-![](https://img.shields.io/badge/JavaScript-informational?style=flat&logo=javascript&logoColor=white&color=6aa6f8)
-![](https://img.shields.io/badge/scss-informational?style=flat&logo=scss&logoColor=white&color=6aa6f8)
+![](https://img.shields.io/badge/Typescript-informational?style=flat&logo=hardhat&logoColor=white&color=6aa6f8)
+![](https://img.shields.io/badge/Tailwind-informational?style=flat&logo=scss&logoColor=white&color=6aa6f8)
 ![](https://img.shields.io/badge/Solidity-informational?style=flat&logo=solidity&logoColor=white&color=6aa6f8)
-![](https://img.shields.io/badge/Hardhat-informational?style=flat&logo=hardhat&logoColor=white&color=6aa6f8)
-
-# Eth Global - Frameworks - Hackathon
+![](https://img.shields.io/badge/Typescript-informational?style=flat&logo=hardhat&logoColor=white&color=6aa6f8)
+![](https://img.shields.io/badge/Foundry-informational?style=flat&logo=hardhat&logoColor=white&color=6aa6f8)
+![](https://img.shields.io/badge/FramesJs-informational?style=flat&logo=hardhat&logoColor=white&color=6aa6f8)
+![](https://img.shields.io/badge/MongoDB-informational?style=flat&logo=hardhat&logoColor=white&color=6aa6f8)
+![](https://img.shields.io/badge/Google-Cloud-informational?style=flat&logo=hardhat&logoColor=white&color=6aa6f8)
+![](https://img.shields.io/badge/The-Graph-informational?style=flat&logo=hardhat&logoColor=white&color=6aa6f8)
+![](https://img.shields.io/badge/BASE-informational?style=flat&logo=hardhat&logoColor=white&color=6aa6f8)
+![](https://img.shields.io/badge/Pinata-informational?style=flat&logo=hardhat&logoColor=white&color=6aa6f8)
 
 # Nofy Frames Project
 
-# Number One Fan (NoF)
+## Number One Fan (NoF)
 
 ![nofy-Start](./public/nof.png)
+
+## Eth Global - Frameworks - Hackathon
 
 ## Introduction
 
@@ -32,11 +39,11 @@ on Google Cloud and assets on Pinata.
 ## Contract address
 
 
-# Build With
+## Build With
 
 - [nextJs Framework](https://nextjs.org/)
 
-# Live Demo
+## Live Demo
 
 - [Nofy Live Demo](https://farcaster.nof.town)
 
