@@ -3,7 +3,7 @@ import { Button } from "frames.js/next"
 
 export const Menu = () => {
     return (
-        <div tw="flex flex-col bg-slate-800 w-full h-full p-20">
+        <div tw="flex flex-col bg-slate-800 w-full h-full p-20 text-white">
             <h2>Menu</h2>
             <h3>General information</h3>
             <p>Nick: <b>mpefaur</b></p>
