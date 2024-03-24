@@ -1,7 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable react/jsx-key */
+import { Collect, CollectButtons } from "@/components/Collect";
 import { Cover, CoverButtons } from "@/components/Cover";
+import { Inventory, InventoryButtons } from "@/components/Inventory";
 import { Menu, MenuButtons } from "@/components/Menu";
+import { Mint, MintButtons } from "@/components/Mint";
+import { Missing, MissingButtons } from "@/components/Missing";
+import { Ranking, RankingButtons } from "@/components/Ranking";
 import { Rules, RulesButtons } from "@/components/Rules";
 import { Start, StartButtons } from "@/components/Start";
 import { AllowedButtonsArray } from "@/types/frames";
@@ -66,11 +71,16 @@ const handleRequest = frames(async (ctx) => {
     const timeLeft = await getTimeLeft();
     const characterId = await getRandomCharacterID();
 
-    const pages: { [key: number]: [React.ReactElement | string, AllowedButtonsArray] } = {
-        0: [process.env.BASE_URL + "/nof.jpg", CoverButtons],
-        1: [<Start characterId={characterId} timeLeft={timeLeft} key={0}/>, StartButtons],
-        2: [<Rules key={1} />, RulesButtons],
-        3: [<Menu key={2} />, MenuButtons]
+    const pages: { [key: number]: [React.ReactElement | string, AllowedButtonsArray, string | null ] } = {
+        0: [process.env.BASE_URL + "/nof.jpg", CoverButtons, null],
+        1: [<Start characterId={characterId} timeLeft={timeLeft} key={0}/>, StartButtons, null],
+        2: [<Rules key={1} />, RulesButtons, null],
+        3: [<Menu key={2} />, MenuButtons, null],
+        4: [<Collect characterId={characterId} key={3} />, CollectButtons, null],
+        5: [<Ranking key={4} />, RankingButtons, null],
+        6: [<Inventory key={5} />, InventoryButtons, null],
+        7: [<Missing key={6} />, MissingButtons, null],
+        8: [<Mint key={7} />, MintButtons, "NOFY id"]
     }
     
     return {
@@ -80,6 +90,7 @@ const handleRequest = frames(async (ctx) => {
         buttons:  pages[pageIndex]?.[1] ?? (
             defaultButtons(pageIndex)
         ),
+        textInput: pages[pageIndex]?.[2] ?? undefined
     };
 });
 

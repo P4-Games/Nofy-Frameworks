@@ -64,7 +64,7 @@ const calculateMedalRank = (medals: any) => {
 const countMedals = (medals: any, medalType: any) => medals.filter((medal: any) => medal === medalType).length
 
 // Controlador de la API
-export default async function GET(req: NextRequest, res: NextResponse) {
+export async function GET(req: NextRequest, res: NextResponse) {
     // Solo permitir el método GET
 
     try {

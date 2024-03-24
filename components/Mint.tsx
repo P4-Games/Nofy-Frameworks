@@ -1,23 +1,20 @@
 import { AllowedButtonsArray } from "@/types/frames";
 import { Button } from "frames.js/next"
+import { FrameInput } from "frames.js/next/server";
 
-interface StartProps {
-    timeLeft: string;
-    characterId: string;
-}
-//
-export const Start = ({ timeLeft, characterId }: StartProps) => {
+export const Mint = () => {
     return (
         <div tw="bg-white text-slate-800 w-full px-12 h-full text-center justify-center items-center flex flex-col">
-            <img src={`${process.env.BASE_URL}/scripts/characters/${characterId}.png`} alt="NOF" width={200} height={200} />
             <h3 className="text-slate-800 font-lg">  
-                {timeLeft ?? ""}
+                Select your NOFY
             </h3>
+            <img src={"https://nof.town/api/characters?discordID=885536275908657162"} alt="Image" width={400} height={400} />
+            <FrameInput text="Mint id" />
         </div>
     )
 }
 
-export const StartButtons: AllowedButtonsArray = [
+export const MintButtons: AllowedButtonsArray = [
     <Button
         key={123}
         action="post"
@@ -25,7 +22,7 @@ export const StartButtons: AllowedButtonsArray = [
             query: { pageIndex: 4 },
         }}
     >
-        Collect
+        Mint
     </Button>,
     <Button
         key={124}
@@ -40,18 +37,9 @@ export const StartButtons: AllowedButtonsArray = [
         key={126}
         action="post"
         target={{
-            query: { pageIndex: 2 },
-        }}
-    >
-        Rules
-    </Button>,
-    <Button
-        key={125}
-        action="post"
-        target={{
             query: { pageIndex: 1 },
         }}
     >
-        Refresh
+        Exit
     </Button>,
 ];

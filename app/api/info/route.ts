@@ -125,7 +125,7 @@ const compareCharacters = (a: any, b: any) => {
  * @param {Object} res - Objeto de respuesta.
  * @returns {Object} - Respuesta JSON.
  */
-export default async function POST (req: NextRequest, res: NextResponse) {
+export async function POST (req: NextRequest, res: NextResponse) {
   // Verificar el método de la solicitud
   if (req.method !== 'GET') {
     return NextResponse.json({ message: 'Method not allowed' })

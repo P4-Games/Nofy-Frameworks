@@ -33,7 +33,7 @@ const updateCharacterImages = async (db: any) => {
 }
 
 // Manejador de la API para actualizar las URLs de las imágenes de los personajes
-export default async function GET(req: NextResponse, res: NextResponse) {
+export async function GET(req: NextResponse, res: NextResponse) {
     const request = await req.json();
     
     if (request.method !== 'GET') {

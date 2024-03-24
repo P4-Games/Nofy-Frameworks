@@ -2,56 +2,46 @@ import { AllowedButtonsArray } from "@/types/frames";
 import { Button } from "frames.js/next"
 
 interface StartProps {
-    timeLeft: string;
     characterId: string;
 }
-//
-export const Start = ({ timeLeft, characterId }: StartProps) => {
+
+export const Collect = ({ characterId }: StartProps) => {
     return (
         <div tw="bg-white text-slate-800 w-full px-12 h-full text-center justify-center items-center flex flex-col">
-            <img src={`${process.env.BASE_URL}/scripts/characters/${characterId}.png`} alt="NOF" width={200} height={200} />
             <h3 className="text-slate-800 font-lg">  
-                {timeLeft ?? ""}
+                Character added successfully!
             </h3>
+            <img src={`${process.env.BASE_URL}/scripts/characters/${characterId}.png`} alt="NOF" width={200} height={200} />
         </div>
     )
 }
 
-export const StartButtons: AllowedButtonsArray = [
+export const CollectButtons: AllowedButtonsArray = [
     <Button
-        key={123}
-        action="post"
-        target={{
-            query: { pageIndex: 4 },
-        }}
-    >
-        Collect
-    </Button>,
-    <Button
-        key={124}
+        key={0}
         action="post"
         target={{
             query: { pageIndex: 3 },
         }}
     >
-        Menu
+        Back
     </Button>,
     <Button
-        key={126}
+        key={1}
         action="post"
         target={{
-            query: { pageIndex: 2 },
+            query: { pageIndex: 6 },
         }}
     >
-        Rules
+        Inventory
     </Button>,
     <Button
-        key={125}
+        key={2}
         action="post"
         target={{
-            query: { pageIndex: 1 },
+            query: { pageIndex: 8 },
         }}
     >
-        Refresh
+        Missing
     </Button>,
 ];

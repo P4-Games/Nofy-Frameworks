@@ -1,16 +1,16 @@
 import { AllowedButtonsArray } from "@/types/frames";
 import { Button } from "frames.js/next"
 
-export const Inventory = ()=>{
+export const Ranking = ()=>{
     return (
         <div tw="flex flex-col">
-            <h2>Inventory</h2>
-            <img src={"https://nof.town/api/characters?discordID=885536275908657162"} alt="Image" width={400} height={400} />
+            <h2>Ranking</h2>
+
         </div>
     )
 }
 
-export const InventoryButtons: AllowedButtonsArray = [
+export const RankingButtons: AllowedButtonsArray = [
     <Button
         key={0}
         action="post"

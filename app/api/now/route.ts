@@ -3,7 +3,7 @@ import { connectToDatabase } from '../../../utils/db'
 import { useParams, useSearchParams } from 'next/navigation'
 import { headers } from 'next/headers'
 
-export default async function GET(req: NextRequest, res: NextResponse) {
+export async function GET(req: NextRequest, res: NextResponse) {
     const searchParams = useSearchParams()
 
     const channelId = searchParams.get('channelId')
