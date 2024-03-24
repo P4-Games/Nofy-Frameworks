@@ -21,7 +21,8 @@ export const CollectButtons: AllowedButtonsArray = [
         key={0}
         action="post"
         target={{
-            query: { pageIndex: 3 },
+            query: { pageIndex: 1
+            },
         }}
     >
         Back

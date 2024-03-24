@@ -91,7 +91,7 @@ const dataRequests = async (pageIndex: number, fid: string) => {
     } = {
         timeLeft: null,
         characterId: null,
-        userData: null
+        userData: null,
     };
 
     if(pageIndex === 2 || pageIndex === 1){
@@ -101,6 +101,34 @@ const dataRequests = async (pageIndex: number, fid: string) => {
     if(pageIndex === 1){
         data.characterId = await getRandomCharacterID();
         data.userData = await createUser(fid);
+    }
+
+    if(pageIndex == 3){
+        const URL = process.env.BASE_URL + "/api/info";
+        const response = await fetch(URL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({uid: fid}),
+        });
+        const res = await response.json();
+
+        data.userData = res;
+    }
+
+    if(pageIndex == 4){
+        const URL = process.env.BASE_URL + "/api/status";
+        const response = await fetch(URL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({uid: fid}),
+        });
+        const res = await response.json();
+
+        data.characterId = res.characterId;
     }
 
     return data;
@@ -122,7 +150,7 @@ const handleRequest = frames(async (ctx) => {
         0: [process.env.DOMAIN_URL + "/nof.jpg", CoverButtons, null],
         1: [<Start characterId={characterId ?? ""} timeLeft={timeLeft ?? ""} key={0}/>, StartButtons, null],
         2: [<Rules key={1} />, RulesButtons, null],
-        3: [<Menu key={2} />, MenuButtons, null],
+        3: [<Menu userData={userData} key={2} />, MenuButtons, null],
         4: [<Collect characterId={characterId ?? ""} key={3} />, CollectButtons, null],
         5: [<Ranking key={4} />, RankingButtons, null],
         6: [<Inventory key={5} />, InventoryButtons, null],

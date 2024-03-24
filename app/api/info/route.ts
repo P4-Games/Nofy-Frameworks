@@ -9,54 +9,54 @@ import {NextRequest, NextResponse} from "next/server";
  * @throws {Error} - Si no se encuentra al usuario en la base de datos.
  */
 const getUserInfo = async (db: any, discordID: any) => {
-  // Obtener la colección de usuarios
-  const usersCollection = db.collection('users')
+    // Obtener la colección de usuarios
+    const usersCollection = db.collection('users')
 
-  // Buscar al usuario por su ID de Discord
-  const user = await usersCollection.findOne({
-    discordID
-  })
+    // Buscar al usuario por su ID de Discord
+    const user = await usersCollection.findOne({
+        discordID
+    })
 
-  // Lanzar un error si el usuario no existe
-  if (!user) {
-    throw new Error(`User not found for discordID: ${discordID}`)
-  }
+    // Lanzar un error si el usuario no existe
+    if (!user) {
+        throw new Error(`User not found for discordID: ${discordID}`)
+    }
 
-  // Calcular la cantidad de personajes del usuario
-  const charactersCount = user.characters.length
+    // Calcular la cantidad de personajes del usuario
+    const charactersCount = user.characters.length
 
-  // Calcular el porcentaje de completitud del inventario del usuario
-  const inventoryCompletion = Math.floor((charactersCount / 132) * 100)
+    // Calcular el porcentaje de completitud del inventario del usuario
+    const inventoryCompletion = Math.floor((charactersCount / 132) * 100)
 
-  // Obtener la cantidad total de usuarios registrados
-  const usersCount = await usersCollection.countDocuments()
+    // Obtener la cantidad total de usuarios registrados
+    const usersCount = await usersCollection.countDocuments()
 
-  // Obtener la cantidad total de personajes capturados por todos los usuarios
-  const charactersCaptured = await usersCollection
+    // Obtener la cantidad total de personajes capturados por todos los usuarios
+    const charactersCaptured = await usersCollection
     .aggregate([
-      { $project: { _id: 0, characters: 1 } },
-      { $unwind: '$characters' },
-      { $group: { _id: null, count: { $sum: 1 } } }
+        { $project: { _id: 0, characters: 1 } },
+        { $unwind: '$characters' },
+        { $group: { _id: null, count: { $sum: 1 } } }
     ])
     .toArray()
 
-  // Obtener el ranking de usuarios y ordenarlo
-  const userRanking = await usersCollection.find().toArray()
-  const sortedRanking = calculateRank(userRanking)
+    // Obtener el ranking de usuarios y ordenarlo
+    const userRanking = await usersCollection.find().toArray()
+    const sortedRanking = calculateRank(userRanking)
 
-  // Obtener la posición del usuario en el ranking
-  const userPosition = sortedRanking.findIndex((item: any) => item.nick === user.nick) + 1
+    // Obtener la posición del usuario en el ranking
+    const userPosition = sortedRanking.findIndex((item: any) => item.nick === user.nick) + 1
 
-  // Construir y retornar el objeto de información del usuario
-  return {
-    Nick: user.nick,
-    DiscordID: user.discordID,
-    CharactersInInventory: charactersCount,
-    InventoryCompletion: inventoryCompletion,
-    UsersRegistered: usersCount,
-    CharactersCaptured: charactersCaptured[0].count,
-    Ranking: userPosition
-  }
+    // Construir y retornar el objeto de información del usuario
+    return {
+        nick: user?.nick,
+        discordID: user?.discordID,
+        charactersInInventory: charactersCount,
+        inventoryCompletion: inventoryCompletion,
+        usersRegistered: usersCount,
+        charactersCaptured: charactersCaptured?.[0]?.count,
+        ranking: userPosition
+    }
 }
 
 /**
@@ -126,30 +126,26 @@ const compareCharacters = (a: any, b: any) => {
  * @returns {Object} - Respuesta JSON.
  */
 export async function POST (req: NextRequest, res: NextResponse) {
-  // Verificar el método de la solicitud
-  if (req.method !== 'GET') {
-    return NextResponse.json({ message: 'Method not allowed' })
-  }
+    try {
+        // Get the Discord ID of the user from the query
+        const body = await req.json();
 
-  try {
-    // Get the Discord ID of the user from the query
-    const body = await req.json();
-    const uid = body.uid;
+        let uid = body?.uid;
 
-    // Conectar a la base de datos
-    const db = await connectToDatabase()
+        // Conectar a la base de datos
+        const db = await connectToDatabase()
 
-    // Obtener la información del usuario
-    const userInfo = await getUserInfo(db, uid)
+        // Obtener la información del usuario
+        const userInfo = await getUserInfo(db, uid)
 
-    // Responder con la información del usuario
-    return NextResponse.json(userInfo)
-  } catch (error) {
-    // Manejar los diferentes tipos de errores
-    if ((error as Error).message.startsWith('User not found')) {
-        return NextResponse.json({ message: (error as Error).message })
-    } else {
-        return NextResponse.json({ message: 'Server error' })
+        // Responder con la información del usuario
+        return NextResponse.json(userInfo)
+    } catch (error) {
+        // Manejar los diferentes tipos de errores
+        if ((error as Error).message.startsWith('User not found')) {
+            return NextResponse.json({ message: (error as Error).message })
+        } else {
+            return NextResponse.json({ message: 'Server error' })
+        }
     }
-  }
 }

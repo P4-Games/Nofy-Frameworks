@@ -1,4 +1,9 @@
+import { ObjectId } from 'mongodb';
+import { CHANNEL_ID } from "@/constants/db";
+import { storageUrlGamma } from "@/utils/config";
+import { connectToDatabase } from "@/utils/db";
 import { NextRequest, NextResponse } from "next/server";
+import { getFrameMessage } from 'frames.js';
 
 interface ClaimData {
     initial_date: Date;
@@ -44,24 +49,138 @@ function calculateNextClaim(prizeData: ClaimData): boolean | string {
 const claimData: ClaimData = {
     initial_date: new Date("2024-03-19T20:29:08+00:00"),
     time: 15,
-    window: 1
+    window: 15
 };
 
 
+const getCharacterStatus = async () => {
+    const db = await connectToDatabase()
+    if(!db) return;
+    const serversCollection = db.collection('servers')
+    const server = await serversCollection.findOne({
+        channelId: CHANNEL_ID,
+    })
+
+    if (!server) {
+        throw new Error(`Server not found for channelId: ${CHANNEL_ID}`)
+    }
+
+    let characterID = server.nofy;
+
+    const serverDate = new Date(server.generatedDate);
+    const currentDate = new Date();
+    const elapsedTime = currentDate.getTime() - serverDate.getTime();
+    const elapsedMinutes = elapsedTime / (1000 * 60);
+
+    if(elapsedMinutes > 15) {
+        characterID = Math.floor(Math.random() * 120);
+
+        let res = await serversCollection.updateOne(
+            { _id: new ObjectId("65d0f080707968958eeeaecc") },
+            {
+                $set: {
+                    nofy: characterID,
+                    claimedBy: "",
+                    generatedDate: new Date()
+                }
+            }
+        )
+    }
+
+    const characterImage = `${storageUrlGamma}/T2/${characterID}.png`
+
+    return { id: characterID, image: characterImage, claimedBy: server?.claimedBy, remainingTime: 15 - elapsedMinutes}
+}
 
 export async function GET(req: NextRequest, res: NextResponse) {
-    // Solo permitir el método GET
-
     try {
-        const nextClaimTime = calculateNextClaim(claimData);
-
-        return NextResponse.json({
-            message: nextClaimTime == true ? "You can claim a NOF!" : "You can't claim your NOF yet, please wait " + nextClaimTime,
-        }, {
-            status: 200
-        })
+        const status = await getCharacterStatus();
+        console.log(status)
+        return NextResponse.json({ status, message: status?.claimedBy ? `You can't claim your NOF yet, please wait ${status.remainingTime} mins` : "You can claim a NOF!" }, { status: 200 })
     } catch (error) {
-        // Manejar los errores
+        return NextResponse.json({ message: 'Server error' }, { status: 500 })
+    }
+}
+
+const claimNOF = async function (FID: string) {
+    try {
+        const db = await connectToDatabase()
+        if(!db) return;
+        const serversCollection = db.collection('servers')
+        const server = await serversCollection.findOne({
+            channelId: CHANNEL_ID,
+        })
+
+        if (!server) {
+            throw new Error(`Server not found for channelId: ${CHANNEL_ID}`)
+        }
+
+        if(server.claimedBy) {
+            return {
+                message: 'Character already claimed'
+            }
+        }
+
+        const serverDate = new Date(server.generatedDate);
+        const currentDate = new Date();
+        const elapsedTime = currentDate.getTime() - serverDate.getTime();
+        const elapsedMinutes = elapsedTime / (1000 * 60);
+
+        if (elapsedMinutes > 15) {
+            return {
+                message: `This NOF expired, please wait ${15 - elapsedMinutes} mins`
+            }
+        }
+
+        const characterID = server.nofy;
+
+        const userCollection = db.collection('users')
+        const user = await userCollection.findOne({
+            discordID: FID
+        })
+
+        if(!user) {
+            return {
+                message: 'User not found'
+            }
+        }
+
+        const character = user.characters.find((c: any) => c.id.toString() === characterID.toString());
+
+        if (character) {
+            return {
+                message: 'Character already claimed'
+            }
+        }
+
+        await serversCollection.updateOne(
+            { _id: new ObjectId("65d0f080707968958eeeaecc") },
+            {
+                $set: {
+                    claimedBy: FID,
+                }
+            }
+        )
+
+        return {
+            message: 'Character claimed successfully',
+        }
+    } catch (error) {
+        console.log(error)
+        return {
+            message: 'Server error'
+        }
+    }
+}
+
+export async function POST(req: NextRequest, res: NextResponse) {
+    try {
+        const request = await req.json();
+        const res = await claimNOF(request.uid);
+        console.log(res)
+        return NextResponse.json(res)
+    } catch (error) {
+        console.error(error)
         return NextResponse.json({
             message: 'Server error'
         }, {

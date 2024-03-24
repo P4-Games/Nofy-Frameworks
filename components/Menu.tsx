@@ -1,15 +1,19 @@
 import { AllowedButtonsArray } from "@/types/frames";
 import { Button } from "frames.js/next"
 
-export const Menu = () => {
+interface MenuProps {
+    userData: any
+}
+export const Menu = ({ userData }: MenuProps) => {
+    console.log(userData)
     return (
         <div tw="flex flex-col bg-slate-800 w-full h-full p-12 text-white gap-3">
             <h2 tw="my-3">General information</h2>
-            <p tw="mt-12">Nick: mpefaur</p>
-            <p tw="mt-6">Collected nofys: 118 out of 120</p>
-            <p tw="mt-6">Progress: 93%</p>
-            <p tw="mt-6">Your position in the ranking: 5 out of 291 registered users.</p>
-            <p tw="mt-6">Total number of nofys collected by all users: 6279</p>
+            <p tw="mt-12">Nick: {userData?.nick}</p>
+            <p tw="mt-6">Collected nofys: {userData?.charactersInInventory ?? ""} out of 120</p>
+            <p tw="mt-6">Progress: {userData?.inventoryCollection ?? "0%"}</p>
+            <p tw="mt-6">Your position in the ranking: {userData?.usersRegistered} out of 291 registered users.</p>
+            <p tw="mt-6">Total number of NOFYs collected by all users: {userData?.ranking}</p>
         </div>
     )
 }
