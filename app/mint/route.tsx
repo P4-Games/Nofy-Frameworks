@@ -60,7 +60,7 @@ const handleRequest = frames(async (ctx) => {
         action="post" 
         target={{ 
           pathname: "/mint",
-          query: { pageIndex: 2 } 
+          query: { pageIndex: 2 }, 
         }}
       >
         Preview ID

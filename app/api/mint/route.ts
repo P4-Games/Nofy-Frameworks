@@ -36,7 +36,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
         params: {
             abi: mintAbi as Abi,
             to: contractAddress,
-            data: calldata,
+            data: calldata as `0x${string}`,
             value: 0,
         },
     });

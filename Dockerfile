@@ -13,8 +13,6 @@ RUN npm install
 # Copia el resto de los archivos de tu proyecto al contenedor
 COPY . .
 
-ENV NEXT_PUBLIC_API_URL='https://localhost:3000/api/'
-
 # Compila tu proyecto Next.js
 RUN npm run build
 
