@@ -4,7 +4,7 @@ import { Button } from "frames.js/next"
 export const Cover = ()=>{
     return (
         <div tw="flex flex-col">
-            <img src={process.env.BASE_URL + "/nof.jpg"} alt="Image" width={1080} height={566} />
+            <img src={process.env.DOMAIN_URL + "/nof.jpg"} alt="Image" width={1080} height={566} />
         </div>
     )
 }

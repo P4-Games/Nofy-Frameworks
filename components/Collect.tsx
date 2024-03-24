@@ -11,7 +11,7 @@ export const Collect = ({ characterId }: StartProps) => {
             <h3 className="text-slate-800 font-lg">  
                 Character added successfully!
             </h3>
-            <img src={`${process.env.BASE_URL}/scripts/characters/${characterId}.png`} alt="NOF" width={200} height={200} />
+            <img src={`${process.env.DOMAIN_URL}/scripts/characters/${characterId}.png`} alt="NOF" width={200} height={200} />
         </div>
     )
 }

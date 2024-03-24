@@ -38,7 +38,7 @@ const handleRequest = frames(async (ctx) => {
         </h3>
         {
           ctx.searchParams?.pageIndex === "2" && ctx.message?.inputText ? (
-            <img src={`${process.env.BASE_URL}/scripts/characters/${ctx.message?.inputText}.png`} alt="NOFY" width={200} height={200} />
+            <img src={`${process.env.DOMAIN_URL}/scripts/characters/${ctx.message?.inputText}.png`} alt="NOFY" width={200} height={200} />
           ) : <img src={"https://nof.town/api/characters?discordID=885536275908657162"} alt="NOFY" width={400} height={400} />
         }
       </div>
