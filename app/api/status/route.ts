@@ -96,7 +96,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
     try {
         const status = await getCharacterStatus();
         console.log(status)
-        return NextResponse.json({ status, message: status?.claimedBy ? `You can't claim your NOF yet, please wait ${status.remainingTime} mins` : "You can claim a NOF!" }, { status: 200 })
+        return NextResponse.json({ status, message: status?.claimedBy ? `This Nofy has been collected, please wait ${status.remainingTime} mins` : "Nofy available, select colect to claim it!" }, { status: 200 })
     } catch (error) {
         return NextResponse.json({ message: 'Server error' }, { status: 500 })
     }
