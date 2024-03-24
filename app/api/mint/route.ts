@@ -1,19 +1,21 @@
-import { Wallet, ethers, id, solidityPackedKeccak256 } from "ethers";
+import { Wallet, solidityPackedKeccak256 } from "ethers";
 import { Signature } from "ethers";
-import { TransactionTargetResponse } from "frames.js";
+import { getFrameMessage } from "frames.js";
 import { NextRequest, NextResponse } from 'next/server'
 import { Abi, encodeFunctionData } from "viem";
 
 export async function POST(req: NextRequest, res: NextResponse) {
-    //const request = await req.json();
-    const nofyId = BigInt(4);
+    const request = await req.json();
+    const frameMessage = await getFrameMessage(request);
+    console.log(frameMessage);
+    const nofyId = BigInt(frameMessage.inputText!);
     let signer = new Wallet(process.env.VALIDATOR_PRIVATE_KEY!.toString());
 
     const contractAddress = process.env.ERC721_CONTRACT ?? 'falta la variable de entorno ERC721_CONTRACT';
 
     const hash = solidityPackedKeccak256(
         ["address", "address", "uint256"],
-        [contractAddress, "0xedD31e732EA38E95f0637634FE1EBb3Ca5055979", nofyId]
+        [contractAddress, frameMessage.connectedAddress, nofyId]
     );
 
     // Signing the message
