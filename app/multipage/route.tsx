@@ -10,6 +10,7 @@ import { Ranking, RankingButtons } from "@/components/Ranking";
 import { Rules, RulesButtons } from "@/components/Rules";
 import { Start, StartButtons } from "@/components/Start";
 import { AllowedButtonsArray } from "@/types/frames";
+import { createUser } from "@/utils/createUser";
 import { getRandomCharacterID } from "@/utils/getCharacter";
 import { getTimeLeft } from "@/utils/getTimeLeft";
 import { farcasterHubContext, openframes } from "frames.js/middleware";
@@ -84,12 +85,13 @@ const defaultButtons = (pageIndex: number): any[] => ([
     </Button>,
 ]);
 
-const dataRequests = async (pageIndex: number) => {
+const dataRequests = async (pageIndex: number, fid: string) => {
     let data: {
         [key: string]: string | null
     } = {
         timeLeft: null,
-        characterId: null
+        characterId: null,
+        userData: null
     };
 
     if(pageIndex === 2 || pageIndex === 1){
@@ -98,6 +100,7 @@ const dataRequests = async (pageIndex: number) => {
 
     if(pageIndex === 1){
         data.characterId = await getRandomCharacterID();
+        data.userData = await createUser(fid);
     }
 
     return data;
@@ -108,13 +111,11 @@ const handleRequest = frames(async (ctx) => {
 
     const imageUrl = `https://picsum.photos/seed/frames.js-${pageIndex}/300/200`;
 
-    const { timeLeft, characterId } = await dataRequests(pageIndex);
-    
-    console.log();
-
     const fid = ctx.message?.requesterFid;
     const inputText = ctx.message?.inputText;
 
+    const { timeLeft, characterId, userData } = await dataRequests(pageIndex, (fid ?? -1)?.toString());
+    
     console.log(fid, inputText);
 
     const pages: { [key: number]: [React.ReactElement | string, AllowedButtonsArray, string | null ] } = {
