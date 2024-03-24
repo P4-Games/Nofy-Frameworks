@@ -50,7 +50,7 @@ const handleRequest = frames(async (ctx) => {
       <Button 
         key={123}
         action="tx" 
-        target="/api/mint" 
+        target={ctx.message?.inputText ? `/api/mint/${ctx.message.inputText}` : "/api/mint"}
         post_url="/mint"
       >
         Mint
