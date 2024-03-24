@@ -1,0 +1,8 @@
+@base=http://localhost:3000/api
+
+
+POST {{base}}/mint
+Content-Type: application/json
+ 
+{
+}

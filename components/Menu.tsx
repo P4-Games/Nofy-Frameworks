@@ -45,9 +45,7 @@ export const MenuButtons: AllowedButtonsArray = [
     <Button
         key={4}
         action="post"
-        target={{
-            query: { pageIndex: 8 },
-        }}
+        target={`${process.env.BASE_URL}/mint`}
     >
         Mint
     </Button>,
