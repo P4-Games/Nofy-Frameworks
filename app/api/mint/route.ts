@@ -4,9 +4,9 @@ import { TransactionTargetResponse } from "frames.js";
 import { NextRequest, NextResponse } from 'next/server'
 import { Abi, encodeFunctionData } from "viem";
 
-export async function POST(req: NextRequest, res: NextResponse): Promise<NextResponse<TransactionTargetResponse>> {
+export async function POST(req: NextRequest, res: NextResponse) {
     //const request = await req.json();
-    const nofyId = BigInt(3);
+    const nofyId = BigInt(4);
     let signer = new Wallet(process.env.VALIDATOR_PRIVATE_KEY!.toString());
 
     const contractAddress = process.env.ERC721_CONTRACT ?? 'falta la variable de entorno ERC721_CONTRACT';
