@@ -6,7 +6,7 @@ export async function generateMetadata() {
     title: "My Page",
     // provide a full URL to your /frames endpoint
     other: await fetchMetadata(
-      new URL("/multipage", process.env.VERCEL_URL ? `https://{process.env.VERCEL_URL}` : "http://localhost:3000")
+      new URL("/multipage", process.env.BASE_URL ? process.env.BASE_URL : "http://localhost:3000")
     ),
   };
 }

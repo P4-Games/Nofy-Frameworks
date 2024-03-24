@@ -5,7 +5,7 @@ import React from "react";
 const frames = createFrames();
 const handleRequest = frames(async (ctx) => {
     return {
-        image: "http://localhost:3000/background.png", /*(
+        image: process.env.BASE_URL + "/background.png", /*(
             <span>
                 {ctx.pressedButton
                     ? `I clicked ${ctx.searchParams.value}`
