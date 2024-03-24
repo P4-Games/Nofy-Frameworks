@@ -104,7 +104,7 @@ const dataRequests = async (pageIndex: number, fid: string) => {
     }
 
     if(pageIndex == 3){
-        const URL = process.env.BASE_URL + "/api/info";
+        const URL = process.env.DOMAIN_URL + "/api/info";
         const response = await fetch(URL, {
             method: "POST",
             headers: {
@@ -118,7 +118,7 @@ const dataRequests = async (pageIndex: number, fid: string) => {
     }
 
     if(pageIndex == 4){
-        const URL = process.env.BASE_URL + "/api/status";
+        const URL = process.env.DOMAIN_URL + "/api/status";
         const response = await fetch(URL, {
             method: "POST",
             headers: {

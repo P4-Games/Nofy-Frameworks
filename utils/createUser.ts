@@ -3,7 +3,7 @@ import { getUserDataForFid } from "frames.js";
 export const createUser = async (fid: string) => {
     const userData = await getUserDataForFid({ fid: parseInt(fid) });
 
-    const URL = process.env.BASE_URL + "/api/start";
+    const URL = process.env.DOMAIN_URL + "/api/start";
 
     const res = await fetch(URL, {
         method: "POST",
