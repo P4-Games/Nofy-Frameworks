@@ -12,7 +12,9 @@ import { Start, StartButtons } from "@/components/Start";
 import { AllowedButtonsArray } from "@/types/frames";
 import { getRandomCharacterID } from "@/utils/getCharacter";
 import { getTimeLeft } from "@/utils/getTimeLeft";
+import { farcasterHubContext, openframes } from "frames.js/middleware";
 import { createFrames, Button } from "frames.js/next";
+import { getXmtpFrameMessage, isXmtpFrameActionPayload } from "frames.js/xmtp";
 import React, { ReactElement } from "react";
 import { setInterval } from "timers/promises";
 
@@ -23,6 +25,26 @@ const frames = createFrames({
     initialState: {
         pageIndex: 0,
     },
+    middleware: [
+        farcasterHubContext(),
+        openframes({
+            clientProtocol: {
+                id: "xmtp",
+                version: "2024-02-09",
+            },
+            handler: {
+                isValidPayload: (body: JSON) => isXmtpFrameActionPayload(body),
+                getFrameMessage: async (body: JSON) => {
+                    if (!isXmtpFrameActionPayload(body)) {
+                        return undefined;
+                    }
+                    const result = await getXmtpFrameMessage(body);
+
+                    return { ...result };
+                },
+            },
+        }),
+    ],
 });
 
 
@@ -31,7 +53,6 @@ interface DefaultFrameProps{
     pageIndex: number;
 }
 const DefaultFrame = ({imageUrl, pageIndex}: DefaultFrameProps)=>{
-
     return (
         <div tw="flex flex-col">
             <img width={300} height={200} src={imageUrl} alt="Image" />
@@ -88,6 +109,13 @@ const handleRequest = frames(async (ctx) => {
     const imageUrl = `https://picsum.photos/seed/frames.js-${pageIndex}/300/200`;
 
     const { timeLeft, characterId } = await dataRequests(pageIndex);
+    
+    console.log();
+
+    const fid = ctx.message?.requesterFid;
+    const inputText = ctx.message?.inputText;
+
+    console.log(fid, inputText);
 
     const pages: { [key: number]: [React.ReactElement | string, AllowedButtonsArray, string | null ] } = {
         0: [process.env.BASE_URL + "/nof.jpg", CoverButtons, null],
