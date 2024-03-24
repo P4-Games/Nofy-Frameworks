@@ -118,7 +118,7 @@ const handleRequest = frames(async (ctx) => {
     console.log(fid, inputText);
 
     const pages: { [key: number]: [React.ReactElement | string, AllowedButtonsArray, string | null ] } = {
-        0: [process.env.BASE_URL + "/nof.jpg", CoverButtons, null],
+        0: [process.env.DOMAIN_URL + "/nof.jpg", CoverButtons, null],
         1: [<Start characterId={characterId ?? ""} timeLeft={timeLeft ?? ""} key={0}/>, StartButtons, null],
         2: [<Rules key={1} />, RulesButtons, null],
         3: [<Menu key={2} />, MenuButtons, null],

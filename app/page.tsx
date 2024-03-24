@@ -6,7 +6,7 @@ export async function generateMetadata() {
     title: "My Page",
     // provide a full URL to your /frames endpoint
     other: await fetchMetadata(
-      new URL("/multipage", process.env.BASE_URL ? process.env.BASE_URL : "https://nofy-frameworks-7bteynlhua-uc.a.run.app/")
+      new URL("/multipage", process.env.DOMAIN_URL ? process.env.DOMAIN_URL : "https://nofy-frameworks-7bteynlhua-uc.a.run.app/")
     ),
   };
 }
