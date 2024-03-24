@@ -1,11 +1,15 @@
 import { AllowedButtonsArray } from "@/types/frames";
 import { Button } from "frames.js/next"
 
-export const Ranking = ()=>{
+interface MenuProps {
+    userData: any
+}
+export const Ranking = ({ userData }: MenuProps) => {
     return (
         <div tw="flex flex-col bg-slate-800 w-full h-full p-12 text-white gap-3">
             <h2>Ranking</h2>
-            <p>Your position in the ranking: 5 out of 291 registered users.</p>
+            <p tw="mt-6">Your position in the ranking: {userData?.ranking} out of {userData?.usersRegistered} registered users.</p>
+            <p tw="mt-6">Total number of NOFYs collected by all users: {userData?.charactersCaptured}</p>
         </div>
     )
 }

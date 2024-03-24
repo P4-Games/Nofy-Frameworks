@@ -11,9 +11,9 @@ export const Menu = ({ userData }: MenuProps) => {
             <h2 tw="my-3">General information</h2>
             <p tw="mt-12">Nick: {userData?.nick}</p>
             <p tw="mt-6">Collected nofys: {userData?.charactersInInventory ?? ""} out of 120</p>
-            <p tw="mt-6">Progress: {userData?.inventoryCollection ?? "0%"}</p>
-            <p tw="mt-6">Your position in the ranking: {userData?.usersRegistered} out of 291 registered users.</p>
-            <p tw="mt-6">Total number of NOFYs collected by all users: {userData?.ranking}</p>
+            <p tw="mt-6">Progress: {userData?.inventoryCompletion ?? "0%"}</p>
+            <p tw="mt-6">Your position in the ranking: {userData?.ranking} out of {userData?.usersRegistered} registered users.</p>
+            <p tw="mt-6">Total number of NOFYs collected by all users: {userData?.charactersCaptured}</p>
         </div>
     )
 }
