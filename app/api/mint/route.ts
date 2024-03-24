@@ -5,10 +5,12 @@ import { NextRequest, NextResponse } from 'next/server'
 import { Abi, encodeFunctionData } from "viem";
 
 export async function POST(req: NextRequest, res: NextResponse) {
+    if(!req.nextUrl.searchParams.has('nofyId') || parseInt(req.nextUrl.searchParams.get('nofyId')!) < 0){
+        return NextResponse.json({ message:"Select a Nofy Id before try to Mint",  status: 400 });
+    }
     const request = await req.json();
     const frameMessage = await getFrameMessage(request);
-    console.log(frameMessage);
-    const nofyId = BigInt(frameMessage.inputText!);
+    const nofyId = BigInt(req.nextUrl.searchParams.get('nofyId')!);
     let signer = new Wallet(process.env.VALIDATOR_PRIVATE_KEY!.toString());
 
     const contractAddress = process.env.ERC721_CONTRACT ?? 'falta la variable de entorno ERC721_CONTRACT';

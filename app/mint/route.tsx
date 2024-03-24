@@ -50,7 +50,11 @@ const handleRequest = frames(async (ctx) => {
       <Button 
         key={123}
         action="tx" 
-        target="/api/mint" 
+        target={{
+            pathname: "/api/mint",
+            query: { nofyId: ctx.message?.inputText.length > 0 ? ctx.message?.inputText : -1 }
+        }}
+
         post_url="/mint"
       >
         Mint
