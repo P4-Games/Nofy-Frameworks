@@ -63,20 +63,38 @@ const defaultButtons = (pageIndex: number): any[] => ([
     </Button>,
 ]);
 
+const dataRequests = async (pageIndex: number) => {
+    let data: {
+        [key: string]: string | null
+    } = {
+        timeLeft: null,
+        characterId: null
+    };
+
+    if(pageIndex === 2 || pageIndex === 1){
+        data.timeLeft = await getTimeLeft();
+    }
+
+    if(pageIndex === 1){
+        data.characterId = await getRandomCharacterID();
+    }
+
+    return data;
+}
+
 const handleRequest = frames(async (ctx) => {
     const pageIndex = Number(ctx.searchParams.pageIndex || 0);
 
     const imageUrl = `https://picsum.photos/seed/frames.js-${pageIndex}/300/200`;
 
-    const timeLeft = await getTimeLeft();
-    const characterId = await getRandomCharacterID();
+    const { timeLeft, characterId } = await dataRequests(pageIndex);
 
     const pages: { [key: number]: [React.ReactElement | string, AllowedButtonsArray, string | null ] } = {
         0: [process.env.BASE_URL + "/nof.jpg", CoverButtons, null],
-        1: [<Start characterId={characterId} timeLeft={timeLeft} key={0}/>, StartButtons, null],
+        1: [<Start characterId={characterId ?? ""} timeLeft={timeLeft ?? ""} key={0}/>, StartButtons, null],
         2: [<Rules key={1} />, RulesButtons, null],
         3: [<Menu key={2} />, MenuButtons, null],
-        4: [<Collect characterId={characterId} key={3} />, CollectButtons, null],
+        4: [<Collect characterId={characterId ?? ""} key={3} />, CollectButtons, null],
         5: [<Ranking key={4} />, RankingButtons, null],
         6: [<Inventory key={5} />, InventoryButtons, null],
         7: [<Missing key={6} />, MissingButtons, null],
