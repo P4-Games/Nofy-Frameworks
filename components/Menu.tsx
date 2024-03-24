@@ -3,15 +3,13 @@ import { Button } from "frames.js/next"
 
 export const Menu = () => {
     return (
-        <div tw="flex flex-col bg-slate-800 w-full h-full p-20 text-white">
-            <h2>Menu</h2>
-            <h3>General information</h3>
-            <p>Nick: <b>mpefaur</b></p>
-            <p>Discord ID: <b>433012300401301</b></p>
-            <p>Collected nofys: <b>123</b> out of 132</p>
-            <p>Progress: <b>93%</b></p>
-            <p>Your position in the ranking: <b>5</b> out of <b>291</b> registered users.</p>
-            <p>Total number of nofys collected by all users: <b>6279</b></p>
+        <div tw="flex flex-col bg-slate-800 w-full h-full p-12 text-white gap-3">
+            <h2 tw="my-3">General information</h2>
+            <p tw="mt-12">Nick: mpefaur</p>
+            <p tw="mt-6">Collected nofys: 118 out of 120</p>
+            <p tw="mt-6">Progress: 93%</p>
+            <p tw="mt-6">Your position in the ranking: 5 out of 291 registered users.</p>
+            <p tw="mt-6">Total number of nofys collected by all users: 6279</p>
         </div>
     )
 }

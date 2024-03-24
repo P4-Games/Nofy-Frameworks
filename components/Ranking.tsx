@@ -3,9 +3,9 @@ import { Button } from "frames.js/next"
 
 export const Ranking = ()=>{
     return (
-        <div tw="flex flex-col">
+        <div tw="flex flex-col bg-slate-800 w-full h-full p-12 text-white gap-3">
             <h2>Ranking</h2>
-
+            <p>Your position in the ranking: 5 out of 291 registered users.</p>
         </div>
     )
 }
