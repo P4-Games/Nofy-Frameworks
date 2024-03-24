@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { connectToDatabase } from '../../../utils/db'
 
 // Función para actualizar la URL de la imagen de los personajes en la colección
@@ -33,15 +33,7 @@ const updateCharacterImages = async (db: any) => {
 }
 
 // Manejador de la API para actualizar las URLs de las imágenes de los personajes
-export async function GET(req: NextResponse, res: NextResponse) {
-    const request = await req.json();
-    
-    if (request.method !== 'GET') {
-        return NextResponse.json({ message: 'Method not allowed' }, {
-            status: 200
-        })
-    }
-
+export async function GET(req: NextRequest, res: NextResponse) {
     try {
         const db = await connectToDatabase()
 
