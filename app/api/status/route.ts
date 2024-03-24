@@ -33,9 +33,9 @@ function calculateNextClaim(prizeData: ClaimData): boolean | string {
 
         let dateString = "";
 
-        if(hours > 0) dateString += `${hours} hora${hours > 1 ? "s" : ""} `;
-        if(minutes > 0) dateString += `${minutes} minuto${minutes > 1 ? "s" : ""} `;
-        if(seconds > 0) dateString += `${seconds} segundo${seconds > 1 ? "s" : ""}`;
+        if(hours > 0) dateString += `${hours} hour${hours > 1 ? "s" : ""} `;
+        if(minutes > 0) dateString += `${minutes} minute${minutes > 1 ? "s" : ""} `;
+        if(seconds > 0) dateString += `${seconds} second${seconds > 1 ? "s" : ""}`;
 
         return `${dateString}`;
     }
@@ -56,7 +56,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
         const nextClaimTime = calculateNextClaim(claimData);
 
         return NextResponse.json({
-            message: nextClaimTime == true ? "Puedes reclamar tu NOF" : "Aún no puedes reclamar tu NOF, espera " + nextClaimTime,
+            message: nextClaimTime == true ? "You can claim a NOF!" : "You can't claim your NOF yet, please wait " + nextClaimTime,
         }, {
             status: 200
         })

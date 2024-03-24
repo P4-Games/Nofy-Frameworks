@@ -68,11 +68,17 @@ const addCharacterToInventory = async (db: any, userID: any, characterID: any, c
     )
 }
 
-export default async function PUT(req: NextRequest, res: NextResponse) {
-    if (req.method !== 'PUT') {
-        return NextResponse.json({ message: 'Method not allowed' }, { status: 405 })
-    }
+export async function GET(req: NextRequest, res: NextResponse) {
+    const db = await connectToDatabase()
+    if(!db) return;
 
+    const characterID = await getRandomCharacterID(db, "1149101233391546389");
+
+    return NextResponse.json({ characterID: characterID }, {status: 200});
+}
+
+
+export async function PUT(req: NextRequest, res: NextResponse) {
     try {
         const body = await req.json();
         const { discordID, channelID } = body;

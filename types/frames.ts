@@ -4,4 +4,9 @@ import { Button } from "frames.js/next";
 
 export type AllowedButton = React.ReactComponentElement<typeof Button>;
 
-export type AllowedButtonsArray = [] | [AllowedButton] | [AllowedButton, AllowedButton] | [AllowedButton, AllowedButton, AllowedButton]; //0-3 buttons
+export type AllowedButtonsArray = [] | [AllowedButton] | [AllowedButton, AllowedButton] | [AllowedButton, AllowedButton, AllowedButton] | [
+    AllowedButton,
+    AllowedButton,
+    AllowedButton,
+    AllowedButton
+]; //0-3 buttons

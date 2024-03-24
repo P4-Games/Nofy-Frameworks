@@ -3,12 +3,14 @@ import { Button } from "frames.js/next"
 
 interface StartProps {
     timeLeft: string;
+    characterId: string;
 }
-export const Start = async ({ timeLeft }: StartProps) => {
+//<img src={"https://nof.town/api/characters?discordID=885536275908657162"} alt="Image" width={400} height={400} />
+export const Start = ({ timeLeft, characterId }: StartProps) => {
     return (
-        <div className="flex flex-col">
-            {/*<img src={"https://nof.town/api/characters?discordID=885536275908657162"} alt="Image" width={1080} height={566} />*/}
-            <h3 className="text-white font-lg">  
+        <div tw="bg-white text-slate-800 w-full px-12 h-full text-center justify-center items-center flex flex-col">
+            <img src={`${process.env.BASE_URL}/scripts/characters/${characterId}.png`} alt="NOF" width={200} height={200} />
+            <h3 className="text-slate-800 font-lg">  
                 {timeLeft ?? ""}
             </h3>
         </div>
@@ -20,7 +22,7 @@ export const StartButtons: AllowedButtonsArray = [
         key={123}
         action="post"
         target={{
-            query: { pageIndex: 2 },
+            query: { pageIndex: 4 },
         }}
     >
         Collect
@@ -35,10 +37,19 @@ export const StartButtons: AllowedButtonsArray = [
         Menu
     </Button>,
     <Button
+        key={126}
+        action="post"
+        target={{
+            query: { pageIndex: 2 },
+        }}
+    >
+        Rules
+    </Button>,
+    <Button
         key={125}
         action="post"
         target={{
-            query: { pageIndex: 4 },
+            query: { pageIndex: 1 },
         }}
     >
         Refresh

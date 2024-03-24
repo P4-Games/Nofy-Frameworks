@@ -1,10 +1,14 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable react/jsx-key */
 import { Cover, CoverButtons } from "@/components/Cover";
+import { Menu, MenuButtons } from "@/components/Menu";
+import { Rules, RulesButtons } from "@/components/Rules";
 import { Start, StartButtons } from "@/components/Start";
 import { AllowedButtonsArray } from "@/types/frames";
+import { getRandomCharacterID } from "@/utils/getCharacter";
 import { getTimeLeft } from "@/utils/getTimeLeft";
 import { createFrames, Button } from "frames.js/next";
+import React, { ReactElement } from "react";
 import { setInterval } from "timers/promises";
 
 const totalPages = 5;
@@ -60,10 +64,13 @@ const handleRequest = frames(async (ctx) => {
     const imageUrl = `https://picsum.photos/seed/frames.js-${pageIndex}/300/200`;
 
     const timeLeft = await getTimeLeft();
+    const characterId = await getRandomCharacterID();
 
-    const pages: { [key: number]: [JSX.Element | string, AllowedButtonsArray] } = {
+    const pages: { [key: number]: [React.ReactElement | string, AllowedButtonsArray] } = {
         0: [process.env.BASE_URL + "/nof.jpg", CoverButtons],
-        1: [<Start timeLeft={"timeLeft"} key={0}/>, StartButtons],
+        1: [<Start characterId={characterId} timeLeft={timeLeft} key={0}/>, StartButtons],
+        2: [<Rules key={1} />, RulesButtons],
+        3: [<Menu key={2} />, MenuButtons]
     }
     
     return {
