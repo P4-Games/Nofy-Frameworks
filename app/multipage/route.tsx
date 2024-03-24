@@ -1,8 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable react/jsx-key */
 import { Cover, CoverButtons } from "@/components/Cover";
+import { Start, StartButtons } from "@/components/Start";
 import { AllowedButtonsArray } from "@/types/frames";
+import { getTimeLeft } from "@/utils/getTimeLeft";
 import { createFrames, Button } from "frames.js/next";
+import { setInterval } from "timers/promises";
 
 const totalPages = 5;
 
@@ -19,6 +22,7 @@ interface DefaultFrameProps{
     pageIndex: number;
 }
 const DefaultFrame = ({imageUrl, pageIndex}: DefaultFrameProps)=>{
+
     return (
         <div tw="flex flex-col">
             <img width={300} height={200} src={imageUrl} alt="Image" />
@@ -55,16 +59,19 @@ const handleRequest = frames(async (ctx) => {
 
     const imageUrl = `https://picsum.photos/seed/frames.js-${pageIndex}/300/200`;
 
+    const timeLeft = await getTimeLeft();
+
     const pages: { [key: number]: [JSX.Element | string, AllowedButtonsArray] } = {
         0: [process.env.BASE_URL + "/nof.jpg", CoverButtons],
+        1: [<Start timeLeft={"timeLeft"} key={0}/>, StartButtons],
     }
-
+    
     return {
-        image: (
-            pages[pageIndex]?.[0] ?? <DefaultFrame imageUrl={imageUrl} pageIndex={pageIndex} />
+        image: pages[pageIndex]?.[0] ?? (
+            <DefaultFrame imageUrl={imageUrl} pageIndex={pageIndex} />
         ),
-        buttons: (
-            pages[pageIndex]?.[1] ?? defaultButtons(pageIndex)
+        buttons:  pages[pageIndex]?.[1] ?? (
+            defaultButtons(pageIndex)
         ),
     };
 });
