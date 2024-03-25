@@ -11,7 +11,7 @@ export const Start = ({ timeLeft, characterId }: StartProps) => {
         <div tw="bg-white text-slate-800 w-full px-12 h-full text-center justify-center items-center flex flex-col">
             <img src={`${process.env.DOMAIN_URL}/scripts/characters/${characterId}.png`} alt="NOF" width={200} height={200} />
             <h3 className="text-slate-800 font-lg">  
-                {(Math.round(Number(timeLeft) * 1e2) / 1e2).toString() ?? ""}
+                {timeLeft ?? ""}
             </h3>
         </div>
     )
