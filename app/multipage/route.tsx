@@ -113,7 +113,6 @@ const dataRequests = async (pageIndex: number, fid: string) => {
             body: JSON.stringify({uid: fid}),
         });
         const res = await response.json();
-
         data.userData = res;
     }
 
@@ -127,8 +126,7 @@ const dataRequests = async (pageIndex: number, fid: string) => {
             body: JSON.stringify({uid: fid}),
         });
         const res = await response.json();
-
-        data.characterId = res.characterId;
+        data.characterId = await getRandomCharacterID();
     }
 
     return data;
