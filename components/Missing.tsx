@@ -3,8 +3,11 @@ import { Button } from "frames.js/next"
 
 export const Missing = ()=>{
     return (
-        <div tw="flex flex-col">
-            <img src={"https://nof.town/api/characters?discordID=885536275908657162"} alt="Image" width={400} height={400} />
+        <div tw="bg-white text-slate-800 w-full px-12 h-full text-center justify-center items-center flex flex-col">
+            <h2 className="text-slate-800 font-lg"> 
+            Missing
+            </h2>
+            <img src={"https://nof.town/api/missing?discordID=885536275908657162"} alt="Image" width={400} height={400} />
         </div>
     )
 }

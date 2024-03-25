@@ -96,7 +96,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
     try {
         const status = await getCharacterStatus();
         console.log(status)
-        return NextResponse.json({ status, message: status?.claimedBy ? `This Nofy has been collected, please wait ${status.remainingTime} mins` : "Nofy available, select colect to claim it!" }, { status: 200 })
+        return NextResponse.json({ status, message: status?.claimedBy ? `Nofy collected, please wait ${status.remainingTime} mins` : "Nofy available, select colect to claim it!" }, { status: 200 })
     } catch (error) {
         return NextResponse.json({ message: 'Server error' }, { status: 500 })
     }
@@ -128,7 +128,7 @@ const claimNOF = async function (FID: string) {
 
         if (elapsedMinutes > 15) {
             return {
-                message: `This NOF expired, please wait ${15 - elapsedMinutes} mins`
+                message: `This N expired, please wait ${15 - elapsedMinutes} mins`
             }
         }
 
