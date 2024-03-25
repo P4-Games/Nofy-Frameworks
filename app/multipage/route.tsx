@@ -103,7 +103,7 @@ const dataRequests = async (pageIndex: number, fid: string) => {
         data.userData = await createUser(fid);
     }
 
-    if(pageIndex == 3){
+    if(pageIndex == 3 || pageIndex == 7){
         const URL = process.env.DOMAIN_URL + "/api/info";
         const response = await fetch(URL, {
             method: "POST",
@@ -152,7 +152,7 @@ const handleRequest = frames(async (ctx) => {
         4: [<Collect characterId={characterId ?? ""} key={3} />, CollectButtons, null],
         5: [<Ranking userData={userData} key={4} />, RankingButtons, null],
         6: [<Inventory key={5} />, InventoryButtons, null],
-        7: [<Missing key={6} />, MissingButtons, null],
+        7: [<Missing userData={userData} key={6} />, MissingButtons, null],
         8: [<Mint key={7} />, MintButtons, "NOFY id"]
     }
     

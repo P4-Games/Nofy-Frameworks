@@ -1,13 +1,17 @@
 import { AllowedButtonsArray } from "@/types/frames";
 import { Button } from "frames.js/next"
 
-export const Missing = ()=>{
+interface MissingProps {
+    userData: any
+}
+
+export const Missing = ({ userData }: MissingProps) => {
     return (
         <div tw="bg-white text-slate-800 w-full px-12 h-full text-center justify-center items-center flex flex-col">
             <h2 className="text-slate-800 font-lg"> 
             Missing
             </h2>
-            <img src={"https://nof.town/api/missing?discordID=885536275908657162"} alt="Image" width={400} height={400} />
+                <img src={`${process.env.DOMAIN_URL}/api/missing?discordId=${userData.discordID}`} alt="Image" width={400} height={400} />
         </div>
     )
 }
