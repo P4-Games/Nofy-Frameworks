@@ -37,12 +37,12 @@ export const CollectButtons: AllowedButtonsArray = [
         Inventory
     </Button>,
     <Button
-        key={2}
-        action="post"
-        target={{
-            query: { pageIndex: 8 },
-        }}
-    >
-        Missing
-    </Button>,
+    key={3}
+    action="post"
+    target={{
+        query: { pageIndex: 7 },
+    }}
+>
+    Missing
+</Button>,
 ];

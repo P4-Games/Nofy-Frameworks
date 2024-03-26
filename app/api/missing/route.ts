@@ -50,13 +50,22 @@ export async function GET(req) {
             throw new Error('Se requiere el DiscordId del usuario');
         }
 
-        // Obtener el inventario de characters del usuario
-        const characters = await getUsersMissing(discordId);
+// Obtener el inventario de characters del usuario
+const characters = await getUsersMissing(discordId);
 
-        // Obtener las rutas de las imágenes locales redimensionadas de los personajes no presentes en el inventario
-        const characterImagePaths = characters.map((c) =>
-            join(process.cwd(), 'scripts', 'characters', `${c.id}.png`)
-        )
+// Inicializar characterImagePaths
+let characterImagePaths = [];
+
+// Verificar si el array de characters está vacío
+if (characters.length === 0) {
+    // Si está vacío, añadir la ruta de la imagen nofy.png
+    characterImagePaths.push(join(process.cwd(), 'public', 'nofy.png'));
+} else {
+    // Si no está vacío, obtener las rutas de las imágenes locales redimensionadas de los personajes no presentes en el inventario
+    characterImagePaths = characters.map((c) =>
+        join(process.cwd(), 'scripts', 'characters', `${c.id}.png`)
+    );
+}
 
         // Crear una matriz de promesas para cargar las imágenes
         const imagePromises = characterImagePaths.map(async (imagePath) => await Jimp.read(imagePath))
@@ -88,14 +97,14 @@ export async function GET(req) {
         // Escalar la imagen a la mitad de su tamaño original
         collage.resize(600, 320); // Ajustar a la mitad de 1200x640
         
-        // Obtener la imagen del collage como un buffer en formato JPG
-        const collageBuffer = await collage.getBufferAsync(Jimp.MIME_GIF);
+        // Obtener la imagen del collage como un buffer en formato PNG
+        const collageBuffer = await collage.getBufferAsync(Jimp.MIME_PNG);
 
         // Enviar la imagen como respuesta en formato JPG
         return new Response(collageBuffer, {
             status: 200,
             headers: {
-                'Content-Type': 'image/gif'
+                'Content-Type': 'image/png'
             }
         });
 
