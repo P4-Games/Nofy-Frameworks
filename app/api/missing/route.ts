@@ -63,45 +63,42 @@ export async function GET(req) {
 
         const images = await Promise.all(imagePromises)
 
-        // Calcular el tamaño del lienzo del collage
-        const maxImagesPerRow = getNumberOfColumns(images.length)
-        const maxImagesPerColumn = Math.ceil(images.length / maxImagesPerRow)
-        const imageWidth = images[0].bitmap.width
-        const imageHeight = images[0].bitmap.height
-
-        const collageWidth = maxImagesPerRow * imageWidth
-        const collageHeight = maxImagesPerColumn * imageHeight
+        // Calcular el layout del collage para mantener la relación de aspecto de 1.91:1
+        const { numColumns, numRows } = calculateLayout(images.length, images[0].bitmap.width, images[0].bitmap.height, 1.91);
+        const collageWidth = numColumns * images[0].bitmap.width;
+        const collageHeight = numRows * images[0].bitmap.height;
 
         // Crear un lienzo para el collage
-        const collage = new Jimp(collageWidth, collageHeight)
+        const collage = new Jimp(collageWidth, collageHeight);
 
         // Colocar las imágenes en el collage
-        let currentX = 0
-        let currentY = 0
+        let currentX = 0;
+        let currentY = 0;
 
-        for (let i = 0; i < images.length; i++) {
-            if (images[i]) {
-                collage.composite(images[i], currentX, currentY)
+        images.forEach((image, i) => {
+            collage.composite(image, currentX, currentY);
 
-                // Actualizar las coordenadas para la siguiente imagen
-                currentX += imageWidth
-                if (currentX >= collageWidth) {
-                    currentX = 0
-                    currentY += imageHeight
-                }
+            // Actualizar las coordenadas para la siguiente imagen
+            currentX += image.bitmap.width;
+            if (currentX >= collageWidth) {
+                currentX = 0;
+                currentY += image.bitmap.height;
             }
-        }
+        });
+        // Escalar la imagen a la mitad de su tamaño original
+        collage.resize(600, 320); // Ajustar a la mitad de 1200x640
+        
+        // Obtener la imagen del collage como un buffer en formato JPG
+        const collageBuffer = await collage.getBufferAsync(Jimp.MIME_GIF);
 
-        // Obtener la imagen del collage como un buffer
-        const collageBuffer = await collage.getBufferAsync(Jimp.MIME_PNG)
-
-        // Enviar la imagen como respuesta
+        // Enviar la imagen como respuesta en formato JPG
         return new Response(collageBuffer, {
             status: 200,
             headers: {
-                'Content-Type': 'image/png'
+                'Content-Type': 'image/gif'
             }
         });
+
     } catch (error) {
         // Manejar los errores
         return new Response(JSON.stringify({
@@ -115,16 +112,15 @@ export async function GET(req) {
     }
 }
 
-function getNumberOfColumns(imageCount) {
-    if (imageCount <= 30) {
-        return 12
-    } else if (imageCount <= 60) {
-        return 13
-    } else if (imageCount <= 90) {
-        return 14
-    } else if (imageCount <= 120) {
-        return 15
-    } else {
-        return 16
+// Nueva función para calcular el layout del collage
+function calculateLayout(imageCount, imageWidth, imageHeight, aspectRatio) {
+    let numColumns = Math.ceil(Math.sqrt(imageCount * aspectRatio));
+    let numRows = Math.ceil(imageCount / numColumns);
+
+    while ((numColumns * imageWidth) / (numRows * imageHeight) > aspectRatio) {
+        numColumns--;
+        numRows = Math.ceil(imageCount / numColumns);
     }
+
+    return { numColumns, numRows };
 }
