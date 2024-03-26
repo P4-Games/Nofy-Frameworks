@@ -1,13 +1,17 @@
 import { AllowedButtonsArray } from "@/types/frames";
 import { Button } from "frames.js/next"
 
-export const Inventory = ()=>{
+interface InventoryProps {
+    userData: any
+}
+
+export const Inventory = ({ userData }: InventoryProps) => {
     return (
         <div tw="bg-white text-slate-800 w-full px-12 h-full text-center justify-center items-center flex flex-col">
             <h2 className="text-slate-800 font-lg"> 
-            Inventory
+            Missing
             </h2>
-            <img src={"https://nof.town/api/characters?discordID=885536275908657162"} alt="Image" width={400} height={400} />
+                <img src={`${process.env.DOMAIN_URL}/api/inventory?discordId=${userData.discordID}`} alt="Image" width={700} height={200}/>
         </div>
     )
 }
