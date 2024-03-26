@@ -9,7 +9,7 @@ export const Inventory = ({ userData }: InventoryProps) => {
     return (
         <div tw="bg-white text-slate-800 w-full px-12 h-full text-center justify-center items-center flex flex-col">
             <h2 className="text-slate-800 font-lg"> 
-            Missing
+            Inventory
             </h2>
                 <img src={`${process.env.DOMAIN_URL}/api/inventory?discordId=${userData.discordID}`} alt="Image" width={700} height={200}/>
         </div>
