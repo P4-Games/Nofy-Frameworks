@@ -103,7 +103,7 @@ const dataRequests = async (pageIndex: number, fid: string) => {
         data.userData = await createUser(fid);
     }
 
-    if(pageIndex == 3 || pageIndex == 7 || pageIndex == 6){
+    if(pageIndex == 4 || pageIndex == 3 || pageIndex == 7 || pageIndex == 6){
         const URL = process.env.DOMAIN_URL + "/api/info";
         const response = await fetch(URL, {
             method: "POST",
@@ -116,7 +116,7 @@ const dataRequests = async (pageIndex: number, fid: string) => {
         data.userData = res;
     }
 
-    if(pageIndex == 4 || pageIndex == 5){
+    if(pageIndex == 5){
         const URL = process.env.DOMAIN_URL + "/api/status";
         const response = await fetch(URL, {
             method: "POST",
@@ -149,7 +149,7 @@ const handleRequest = frames(async (ctx) => {
         1: [<Start characterId={characterId ?? ""} timeLeft={timeLeft ?? ""} key={0}/>, StartButtons, null],
         2: [<Rules key={1} />, RulesButtons, null],
         3: [<Menu userData={userData} key={2} />, MenuButtons, null],
-        4: [<Collect characterId={characterId ?? ""} key={3} />, CollectButtons, null],
+        4: [<Collect userData={userData} key={3} />, CollectButtons, null],
         5: [<Ranking userData={userData} key={4} />, RankingButtons, null],
         6: [<Inventory userData={userData} key={5} />, InventoryButtons, null],
         7: [<Missing userData={userData} key={6} />, MissingButtons, null],

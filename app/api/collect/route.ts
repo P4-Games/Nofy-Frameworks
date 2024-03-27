@@ -133,10 +133,25 @@ export async function GET(req: NextRequest, res: NextResponse) {
             }, { status: 200 });
         } else {
             // Si nofy no está disponible o ya ha sido reclamado
-            return NextResponse.json({ 
-                status, 
-                message: status?.claimedBy ? `Nofy already claimed` : "Nofy not available"
-            }, { status: 200 });
+            if (status && status.image) {
+                // Si hay una imagen disponible, devolver la imagen como respuesta
+                const imageResponse = await fetch(status.image);
+
+                if (imageResponse.ok) {
+                    const imageBuffer = await imageResponse.arrayBuffer();
+                    
+                    return new Response(imageBuffer, {
+                        status: 200,
+                        headers: { 'Content-Type': 'image/png' }
+                    });
+                } else {
+                    // Si la respuesta no es exitosa, devolver un mensaje de error
+                    return NextResponse.json({ message: 'Failed to fetch image' }, { status: 500 });
+                }
+            } else {
+                // Si no hay imagen disponible, devolver un mensaje de error
+                return NextResponse.json({ message: 'No image available' }, { status: 404 });
+            }
         }
     } catch (error) {
         console.log(error);
