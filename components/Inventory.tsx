@@ -11,7 +11,7 @@ export const Inventory = ({ userData }: InventoryProps) => {
             <h2 className="text-slate-800 font-lg"> 
             Inventory
             </h2>
-                <img src={`${process.env.DOMAIN_URL}/api/inventory?discordId=${userData.discordID}`} alt="Image" width={700} height={200}/>
+                <img src={`${process.env.DOMAIN_URL}/api/inventory?discordId=${userData.discordID}`} alt="Image" width={700} height={240}/>
         </div>
     )
 }
