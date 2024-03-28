@@ -3,8 +3,18 @@ import { CHANNEL_ID } from "@/constants/db";
 import { storageUrlGamma } from "@/utils/config";
 import { connectToDatabase } from "@/utils/db";
 import { NextRequest, NextResponse } from "next/server";
-import { parse } from 'url';
 
+// Define the type for a character
+interface Character {
+    id: any;
+    dateClaimed: Date;
+}
+
+// Define the type for a user
+interface User {
+    discordID: string;
+    characters: Character[]; // Define the characters field as an array of Character
+}
 
 const getCharacterStatus = async () => {
     const db = await connectToDatabase()
@@ -66,7 +76,7 @@ const claimNOF = async function (FID: string) {
 
         const characterID = server.nofy;
 
-        const userCollection = db.collection('users')
+        const userCollection = db.collection<User>('users') // Specify the User type here
         const user = await userCollection.findOne({
             discordID: FID
         })
@@ -78,7 +88,7 @@ const claimNOF = async function (FID: string) {
         }
 
         // Comprobando si el usuario ya tiene el personaje
-        const character = user.characters.find((c) => c && c.id && c.id.toString() === characterID.toString());
+        const character = user.characters.find(c => c.id.toString() === characterID.toString());
 
         if (character) {
             return {
@@ -125,12 +135,18 @@ export async function GET(req: NextRequest, res: NextResponse) {
             // Si el nofy está disponible, intenta reclamarlo
             const claimResult = await claimNOF(FID);
 
-            // Regresar el resultado de la operación de reclamo
-            return NextResponse.json({ 
-                status, 
-                claimResult,
-                message: claimResult.message
-            }, { status: 200 });
+            // Verificar si claimResult está definido
+            if (claimResult) {
+                // Regresar el resultado de la operación de reclamo
+                return NextResponse.json({ 
+                    status, 
+                    claimResult,
+                    message: claimResult.message
+                }, { status: 200 });
+            } else {
+                // Si claimResult es undefined, devolver un mensaje de error
+                return NextResponse.json({ message: 'Claim operation failed' }, { status: 500 });
+            }
         } else {
             // Si nofy no está disponible o ya ha sido reclamado
             if (status && status.image) {
