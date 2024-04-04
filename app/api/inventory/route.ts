@@ -114,7 +114,7 @@ export async function GET(req: NextRequest) {
         });
 
         // Escalar la imagen a la mitad de su tamaño original
-        collage.resize(600, 320); // Ajustar a la mitad de 1200x640
+        collage.resize(600, 600); // Ajustar a la mitad de 1200x640
         
         // Obtener la imagen del collage como un buffer en formato PNG
         const collageBuffer = await collage.getBufferAsync(Jimp.MIME_PNG);
