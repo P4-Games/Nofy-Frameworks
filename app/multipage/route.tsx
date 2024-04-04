@@ -160,6 +160,9 @@ const handleRequest = frames(async (ctx) => {
         image: pages[pageIndex]?.[0] ?? (
             <DefaultFrame imageUrl={imageUrl} pageIndex={pageIndex} />
         ),
+        imageOptions: {
+            aspectRatio: "1:1",
+          },
         buttons:  pages[pageIndex]?.[1] ?? (
             defaultButtons(pageIndex)
         ),

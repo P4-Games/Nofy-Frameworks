@@ -8,7 +8,7 @@ interface CollectProps {
 export const Collect = ({ userData }: CollectProps) => {
     return (
         <div tw="bg-white text-slate-800 w-full px-12 h-full text-center justify-center items-center flex flex-col">
-            <img src={`${process.env.DOMAIN_URL}/api/collect?DiscordID=${userData.discordID}`} alt="NOF" width={500} height={500} />
+            <img src={`${process.env.DOMAIN_URL}/api/collect?DiscordID=${userData.discordID}`} alt="NOF" width={800} height={800} />
             <h3 className="text-slate-800 font-lg">  
                 Character added successfully
             </h3>

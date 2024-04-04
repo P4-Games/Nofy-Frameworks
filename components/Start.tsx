@@ -9,7 +9,7 @@ interface StartProps {
 export const Start = ({ timeLeft, characterId }: StartProps) => {
     return (
         <div tw="bg-white text-slate-800 w-full px-12 h-full text-center justify-center items-center flex flex-col" >
-            <img src={`https://storage.googleapis.com/nof-gamma/T2/${characterId}.png`} alt="NOF" width={500} height={500} />
+            <img src={`https://storage.googleapis.com/nof-gamma/T2/${characterId}.png`} alt="NOF" width={800} height={800} />
             <h3 className="text-slate-800 font-lg">  
                 {timeLeft ?? ""}
             </h3>
