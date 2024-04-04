@@ -7,7 +7,7 @@ const frames = createFrames({
   basePath: "/",
 });
 
-const handleRequest = frames(async (ctx) => {
+const handleRequest = frames(async (ctx: any) => {
   console.log(`collect ${ctx.message?.requesterFid}`);
   const userId = ctx.message?.requesterFid;
 
@@ -29,8 +29,8 @@ const handleRequest = frames(async (ctx) => {
     ),
     imageOptions: {
       aspectRatio: "1:1",
-      width: "500",
-      height: "500",
+      width: 500,
+      height: 500,
       
     },
     buttons: [

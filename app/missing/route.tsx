@@ -7,7 +7,7 @@ const frames = createFrames({
   basePath: "/",
 });
 
-const handleRequest = frames(async (ctx) => {
+const handleRequest = frames(async (ctx: any) => {
   console.log(`collect ${ctx.message?.requesterFid}`);
   const userId = ctx.message?.requesterFid;
 
@@ -18,13 +18,13 @@ const handleRequest = frames(async (ctx) => {
                     <h2 className="text-slate-800 font-lg"> 
             Missing
             </h2>
-        <img src={`${process.env.DOMAIN_URL}/api/missing?discordId=${userId}`} alt="Image" width={450} height={350}/>
+        <img src={`${process.env.DOMAIN_URL}/api/missing?discordId=${userId}`} alt="Image" width={450} height={450}/>
       </div>
     ),
     imageOptions: {
       aspectRatio: "1:1",
-      width: "500",
-      height: "500",
+      width: 500,
+      height: 500,
     },
     buttons: [
       <Button
