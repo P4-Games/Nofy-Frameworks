@@ -28,9 +28,7 @@ export const StartButtons: AllowedButtonsArray = [
     <Button
         key={124}
         action="post"
-        target={{
-            query: { pageIndex: 3 },
-        }}
+        target={`${process.env.DOMAIN_URL}/menu`}
     >
         Menu
     </Button>,

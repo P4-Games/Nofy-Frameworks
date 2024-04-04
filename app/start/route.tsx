@@ -43,9 +43,7 @@ const handleRequest = frames(async (ctx) => {
   <Button
       key={124}
       action="post"
-      target={{
-          query: { pageIndex: 3 },
-      }}
+      target={`${process.env.DOMAIN_URL}/menu`}
   >
       Menu
   </Button>,

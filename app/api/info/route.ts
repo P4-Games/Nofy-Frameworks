@@ -125,18 +125,23 @@ const compareCharacters = (a: any, b: any) => {
  * @param {Object} res - Objeto de respuesta.
  * @returns {Object} - Respuesta JSON.
  */
-export async function POST (req: NextRequest, res: NextResponse) {
-    try {
-        // Get the Discord ID of the user from the query
-        const body = await req.json();
+export async function GET(req: NextRequest) {
+  // Solo permitir el método GET
 
-        let uid = body?.uid;
+  try {
+      const { searchParams } = new URL(req.url); // Obtener los parámetros de búsqueda de la URL
+      const discordId = searchParams.get("discordId"); // Obtener el valor de discordId
+
+      // Verificar si el DiscordId fue proporcionado
+      if (!discordId) {
+          throw new Error('Se requiere el DiscordId del usuario');
+      }
 
         // Conectar a la base de datos
         const db = await connectToDatabase()
 
         // Obtener la información del usuario
-        const userInfo = await getUserInfo(db, uid)
+        const userInfo = await getUserInfo(db, discordId)
 
         // Responder con la información del usuario
         return NextResponse.json(userInfo)

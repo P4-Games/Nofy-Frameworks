@@ -37,10 +37,7 @@ const handleRequest = frames(async (ctx) => {
       <Button
         key={0}
         action="post"
-        target={{
-          pathname: "/multipage",
-          query: { pageIndex: 1 },
-        }}
+        target={`${process.env.DOMAIN_URL}/start`}
       >
         Back
       </Button>,
@@ -48,20 +45,14 @@ const handleRequest = frames(async (ctx) => {
       <Button
         key={1}
         action="post"
-        target={{
-          pathname: "/multipage",
-          query: { pageIndex: 6 },
-        }}
+        target={`${process.env.DOMAIN_URL}/inventory`}
       >
         Inventory
       </Button>,
       <Button
         key={3}
         action="post"
-        target={{
-          pathname: "/multipage",
-          query: { pageIndex: 7 }
-        }}
+        target={`${process.env.DOMAIN_URL}/missing`}
       >
         Missing
       </Button>,

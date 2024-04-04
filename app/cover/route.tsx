@@ -12,35 +12,32 @@ const handleRequest = frames(async (ctx) => {
   const userId = ctx.message?.requesterFid;
 
 
+  const response = await fetch(`${process.env.DOMAIN_URL}/api/collect?DiscordID=${userId}`, {
+    method: "GET"
+  });
+  const res = await response.json();
+  console.log(res);
+
   return {
     image: (
-      <div tw="bg-white text-slate-800 w-full px-12 h-full text-center justify-center items-center flex flex-col">
-                    <h2 className="text-slate-800 font-lg"> 
-            Inventory
-            </h2>
-        <img src={`${process.env.DOMAIN_URL}/api/inventory?discordId=${userId}`} alt="Image" width={450} height={450}/>
-      </div>
+        <div tw="flex flex-col">
+            <img src={process.env.DOMAIN_URL + "/nof1.png"} alt="Image" width={500} height={500} />
+        </div>
     ),
     imageOptions: {
       aspectRatio: "1:1",
-      width: "800",
-      height: "800",
+      width: "500",
+      height: "500",
+      
     },
     buttons: [
-      <Button
+        <Button
         key={0}
         action="post"
         target={`${process.env.DOMAIN_URL}/start`}
-      >
-        Back
-      </Button>,
-      <Button
-        key={3}
-        action="post"
-        target={`${process.env.DOMAIN_URL}/missing`}
-      >
-        Missing
-      </Button>,
+    >
+        Start
+    </Button>,
     ],
   };
 });

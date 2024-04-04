@@ -30,10 +30,7 @@ const handleRequest = frames(async (ctx) => {
       <Button
         key={0}
         action="post"
-        target={{
-          pathname: "/multipage",
-          query: { pageIndex: 1 },
-        }}
+        target={`${process.env.DOMAIN_URL}/start`}
       >
         Back
       </Button>,
