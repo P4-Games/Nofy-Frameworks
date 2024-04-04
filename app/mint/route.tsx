@@ -73,7 +73,8 @@ const handleRequest = frames(async (ctx) => {
         key={124}
         action="post"
         target={{
-          query: { pageIndex: 3 },
+          pathname: "/multipage",
+          query: { pageIndex: 3 }
         }}
       >
         Menu
@@ -82,6 +83,7 @@ const handleRequest = frames(async (ctx) => {
         key={126}
         action="post"
         target={{
+          pathname: "/multipage",
           query: { pageIndex: 1 },
         }}
       >

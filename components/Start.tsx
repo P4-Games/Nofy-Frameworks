@@ -21,9 +21,7 @@ export const StartButtons: AllowedButtonsArray = [
     <Button
         key={123}
         action="post"
-        target={{
-            query: { pageIndex: 4 },
-        }}
+        target={`${process.env.DOMAIN_URL}/collect`}
     >
         Collect
     </Button>,
