@@ -14,11 +14,11 @@ const handleRequest = frames(async (ctx: any) => {
 
   return {
     image: (
-      <div tw="bg-white text-slate-800 w-full px-12 h-full text-center justify-center items-center flex flex-col">
-                    <h2 className="text-slate-800 font-lg"> 
+      <div tw="bg-white text-slate-800 text-xl w-full px-12 h-full text-center justify-center items-center flex flex-col">
+            <h2 > 
             Inventory
             </h2>
-        <img src={`${process.env.DOMAIN_URL}/api/inventory?discordId=${userId}`} alt="Image" width={450} height={450}/>
+        <img src={`${process.env.DOMAIN_URL}/api/inventory?discordId=${userId}`} alt="Image" width={350} height={350}/>
       </div>
     ),
     imageOptions: {

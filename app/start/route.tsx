@@ -50,9 +50,7 @@ const handleRequest = frames(async (ctx: any) => {
   <Button
       key={126}
       action="post"
-      target={{
-          query: { pageIndex: 2 },
-      }}
+      target={`${process.env.DOMAIN_URL}/rules`}
   >
       Rules
   </Button>,

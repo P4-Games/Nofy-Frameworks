@@ -8,15 +8,6 @@ const frames = createFrames({
 });
 
 const handleRequest = frames(async (ctx: any) => {
-  console.log(`collect ${ctx.message?.requesterFid}`);
-  const userId = ctx.message?.requesterFid;
-
-
-  const response = await fetch(`${process.env.DOMAIN_URL}/api/collect?DiscordID=${userId}`, {
-    method: "GET"
-  });
-  const res = await response.json();
-  console.log(res);
 
   return {
     image: (

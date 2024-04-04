@@ -54,28 +54,30 @@ const claimData: ClaimData = {
 
 
 const getCharacterStatus = async () => {
-    const db = await connectToDatabase()
-    if(!db) return;
-    const serversCollection = db.collection('servers')
+    const db = await connectToDatabase();
+    if (!db) return;
+    
+    const serversCollection = db.collection('servers');
     const server = await serversCollection.findOne({
         channelId: CHANNEL_ID,
-    })
+    });
 
     if (!server) {
-        throw new Error(`Server not found for channelId: ${CHANNEL_ID}`)
+        throw new Error(`Server not found for channelId: ${CHANNEL_ID}`);
     }
 
     let characterID = server.nofy;
-
     const serverDate = new Date(server.generatedDate);
     const currentDate = new Date();
     const elapsedTime = currentDate.getTime() - serverDate.getTime();
     const elapsedMinutes = elapsedTime / (1000 * 60);
+    const remainingTimeMinutes = 15 - elapsedMinutes;
+    const remainingTime = Math.floor(remainingTimeMinutes);
 
-    if(elapsedMinutes > 15) {
+    if (elapsedMinutes > 15) {
         characterID = Math.floor(Math.random() * 120);
 
-        let res = await serversCollection.updateOne(
+        await serversCollection.updateOne(
             { _id: new ObjectId("65d0f080707968958eeeaecc") },
             {
                 $set: {
@@ -84,19 +86,24 @@ const getCharacterStatus = async () => {
                     generatedDate: new Date()
                 }
             }
-        )
+        );
     }
 
-    const characterImage = `${storageUrlGamma}/T2/${characterID}.png`
+    const characterImage = `${storageUrlGamma}/T2/${characterID}.png`;
 
-    return { id: characterID, image: characterImage, claimedBy: server?.claimedBy, remainingTime: 15 - elapsedMinutes}
-}
+    return { 
+        id: characterID, 
+        image: characterImage, 
+        claimedBy: server?.claimedBy, 
+        remainingTime: remainingTime
+    };
+};
 
 export async function GET(req: NextRequest, res: NextResponse) {
     try {
         const status = await getCharacterStatus();
         console.log(status)
-        return NextResponse.json({ status, message: status?.claimedBy ? `Nofy collected, please wait ${status.remainingTime} mins` : "Nofy available, select colect to claim it!" }, { status: 200 })
+        return NextResponse.json({ status, message: status?.claimedBy ? `Nofy collected, please wait ${status.remainingTime} minutes!` : "Nofy available, select collect to claim it!" }, { status: 200 })
     } catch (error) {
         return NextResponse.json({ message: 'Server error' }, { status: 500 })
     }
