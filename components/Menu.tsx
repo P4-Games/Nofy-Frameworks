@@ -31,18 +31,14 @@ export const MenuButtons: AllowedButtonsArray = [
     <Button
         key={2}
         action="post"
-        target={{
-            query: { pageIndex: 6 },
-        }}
+        target={`${process.env.DOMAIN_URL}/inventory`}
     >
         Inventory
     </Button>,
     <Button
         key={3}
         action="post"
-        target={{
-            query: { pageIndex: 7 },
-        }}
+        target={`${process.env.DOMAIN_URL}/missing`}
     >
         Missing
     </Button>,

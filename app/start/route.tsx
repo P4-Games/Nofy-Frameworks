@@ -12,7 +12,7 @@ const handleRequest = frames(async (ctx) => {
   const userId = ctx.message?.requesterFid;
 
 
-  const response = await fetch(`${process.env.DOMAIN_URL}/api/collect?DiscordID=${userId}`, {
+  const response = await fetch(`${process.env.DOMAIN_URL}/api/status`, {
     method: "GET"
   });
   const res = await response.json();
@@ -22,7 +22,7 @@ const handleRequest = frames(async (ctx) => {
     image: (
       <div tw="bg-white text-slate-800 text-base w-full px-12 h-full text-center justify-center items-center flex flex-col">
         <img src={res.status.image} alt="NOF" width={400} height={400} />
-        <h3 className="text-slate-800 text-base font-lg">
+        <h3 className="text-slate-800 text-base">
           {res.message}
         </h3>
       </div>
@@ -31,40 +31,40 @@ const handleRequest = frames(async (ctx) => {
       aspectRatio: "1:1",
       width: "500",
       height: "500",
-      
     },
     buttons: [
       <Button
-        key={0}
-        action="post"
-        target={{
-          pathname: "/multipage",
-          query: { pageIndex: 1 },
-        }}
-      >
-        Back
-      </Button>,
-
-      <Button
-        key={1}
-        action="post"
-        target={{
-          pathname: "/multipage",
-          query: { pageIndex: 6 },
-        }}
-      >
-        Inventory
-      </Button>,
-      <Button
-        key={3}
-        action="post"
-        target={{
-          pathname: "/multipage",
-          query: { pageIndex: 7 }
-        }}
-      >
-        Missing
-      </Button>,
+      key={123}
+      action="post"
+      target={`${process.env.DOMAIN_URL}/collect`}
+  >
+      Collect
+  </Button>,
+  <Button
+      key={124}
+      action="post"
+      target={{
+          query: { pageIndex: 3 },
+      }}
+  >
+      Menu
+  </Button>,
+  <Button
+      key={126}
+      action="post"
+      target={{
+          query: { pageIndex: 2 },
+      }}
+  >
+      Rules
+  </Button>,
+  <Button
+      key={125}
+      action="post"
+      target={`${process.env.DOMAIN_URL}/start`}
+  >
+      Refresh
+  </Button>,
     ],
   };
 });

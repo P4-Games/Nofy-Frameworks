@@ -12,26 +12,19 @@ const handleRequest = frames(async (ctx) => {
   const userId = ctx.message?.requesterFid;
 
 
-  const response = await fetch(`${process.env.DOMAIN_URL}/api/collect?DiscordID=${userId}`, {
-    method: "GET"
-  });
-  const res = await response.json();
-  console.log(res);
-
   return {
     image: (
-      <div tw="bg-white text-slate-800 text-base w-full px-12 h-full text-center justify-center items-center flex flex-col">
-        <img src={res.status.image} alt="NOF" width={400} height={400} />
-        <h3 className="text-slate-800 text-base font-lg">
-          {res.message}
-        </h3>
+      <div tw="bg-white text-slate-800 w-full px-12 h-full text-center justify-center items-center flex flex-col">
+                    <h2 className="text-slate-800 font-lg"> 
+            Missing
+            </h2>
+        <img src={`${process.env.DOMAIN_URL}/api/missing?discordId=${userId}`} alt="Image" width={450} height={350}/>
       </div>
     ),
     imageOptions: {
       aspectRatio: "1:1",
       width: "500",
       height: "500",
-      
     },
     buttons: [
       <Button
@@ -48,22 +41,9 @@ const handleRequest = frames(async (ctx) => {
       <Button
         key={1}
         action="post"
-        target={{
-          pathname: "/multipage",
-          query: { pageIndex: 6 },
-        }}
+        target={`${process.env.DOMAIN_URL}/inventory`}
       >
         Inventory
-      </Button>,
-      <Button
-        key={3}
-        action="post"
-        target={{
-          pathname: "/multipage",
-          query: { pageIndex: 7 }
-        }}
-      >
-        Missing
       </Button>,
     ],
   };
