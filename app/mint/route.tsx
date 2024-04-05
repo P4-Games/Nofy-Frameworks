@@ -28,8 +28,8 @@ const handleRequest = frames(async (ctx: any) => {
         >
           View on block explorer
         </Button>,
-        <Button key={126} action="post" target={{ pathname: "/multipage", query: { pageIndex: 1 }, }}>
-          Exit
+        <Button key={126} action="post" target={`${process.env.DOMAIN_URL}/start`}>
+          Home
         </Button>
       ],
     };
@@ -49,9 +49,15 @@ const handleRequest = frames(async (ctx: any) => {
   let buttons: any= [];
   if (ctx.message?.inputText) {
     buttons.push(
-      <Button key={123} action="tx" target={{ pathname: "/api/mint", query: { nofyId: ctx.message?.inputText.length > 0 ? ctx.message?.inputText : -1 } }} post_url="/mint">
-        Mint
-      </Button>
+<Button 
+  key={123} 
+  action="tx" 
+  target={`${process.env.DOMAIN_URL}/api/mint?nofyId=${ctx.message?.inputText || -1}`}
+  post_url={`${process.env.DOMAIN_URL}/mint`}
+>
+  Mint
+</Button>
+
     );
   }
   buttons.push(
