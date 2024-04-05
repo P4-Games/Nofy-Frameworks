@@ -9,7 +9,7 @@ const frames = createFrames({
 
 const handleRequest = frames(async (ctx: any) => {
   const texts = [
-    "A new Nofy will be available every 5min.",
+    "A new Nofy will be available every 15min.",
     "The first user to collect gets the character.",
     "Check your inventory.",
     "You can only collect a Nofy if you are the first to collect.",
