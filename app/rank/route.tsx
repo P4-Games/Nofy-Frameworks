@@ -23,16 +23,12 @@ const handleRequest = frames(async () => {
     userListText += `${position}.- ${user.Nick} - Nofys Collected: ${user.Characters}\n`;
   });
 
-  // Crear el contenido a mostrar en el div
-  const content = (
-    <div tw="flex flex-col text-base w-full h-full p-12 bg-white text-slate-800 ">
-      <h2 tw="text-center justify-center">TOP 10 RANKING</h2>
-      <pre tw="white-space-pre-line">{userListText}</pre>
-    </div>
-  );
-
   return {
-    image: content
+    image: 
+    <div tw="flex flex-col text-base w-full h-full p-12 bg-white text-slate-800 ">
+    <h2 tw="text-center justify-center">TOP 10 RANKING</h2>
+    <pre tw="white-space-pre-line">{userListText}</pre>
+    </div>
     ,
     imageOptions: {
       aspectRatio: "1:1",
