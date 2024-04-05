@@ -39,9 +39,7 @@ const handleRequest = frames(async (ctx: any) => {
       <Button
       key={1}
       action="post"
-      target={{
-          query: { pageIndex: 5 },
-      }}
+      target={`${process.env.DOMAIN_URL}/rank`}
   >
       Rank
   </Button>,
