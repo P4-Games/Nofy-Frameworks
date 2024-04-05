@@ -37,15 +37,17 @@ const getUsersRank = async () => {
     // Limitar el ranking a los primeros 10 jugadores
     const limitedRanking = sortedRanking.slice(0, 10)
 
-    // Crear la lista de ranking con la posición, el nombre, la cantidad de personajes y las medallas
-    const rankingList = limitedRanking.map((user: any, index: any) => ({
-        Position: index + 1,
-        Nick: user.nick,
-        Characters: user.characters.length,
-        Medals: user.medals
-    }))
+    // Crear el objeto de ranking con la posición como clave
+    const rankingByPosition: Record<string, any> = {};
+    limitedRanking.forEach((user, index) => {
+        rankingByPosition[(index + 1).toString()] = {
+            Nick: user.nick,
+            Characters: user.characters.length,
+            Medals: user.medals
+        };
+    });
 
-    return rankingList
+    return rankingByPosition;
 }
 
 // Función para calcular el rango de medallas de un usuario
