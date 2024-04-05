@@ -55,19 +55,31 @@ const handleRequest = frames(async (ctx: any) => {
     );
   }
   buttons.push(
-    <Button key={1234} action="post" target={{ pathname: "/mint" }}>
+    <Button 
+    key={1234} 
+    action="post" 
+    target={`${process.env.DOMAIN_URL}/mint`}
+    >
       Preview ID
     </Button>
   );
   buttons.push(
-    <Button key={124} action="post" target={{ pathname: "/menu" }}>
+    <Button 
+    key={124} 
+    action="post" 
+    target={`${process.env.DOMAIN_URL}/menu`}
+    >
       Menu
     </Button>
   );
   buttons.push(
-    <Button key={126} action="post" target={{ pathname: "/start" }}>
-      Home
-    </Button>
+    <Button
+    key={0}
+    action="post"
+    target={`${process.env.DOMAIN_URL}/start`}
+  >
+    Home
+  </Button>,
   );
 
   return {
