@@ -26,70 +26,54 @@ const handleRequest = frames(async (ctx) => {
         >
           View on block explorer
         </Button>,
+        <Button key={126} action="post" target={{ pathname: "/multipage", query: { pageIndex: 1 }, }}>
+          Exit
+        </Button>
       ],
     };
   }
 
+  let image = (<div tw="bg-white text-slate-800 w-full px-12 h-full text-center justify-center items-center flex flex-col">
+    <h3 className="text-slate-800 font-lg">
+      Select your NOFY
+    </h3>
+    {
+      ctx.message?.inputText ? (
+        <img src={`https://storage.googleapis.com/nof-gamma/T2/${ctx.message?.inputText}.png`} alt="NOFY" width={500} height={500} />
+      ) : <img src={"https://storage.googleapis.com/nof-gamma/T2/inventory.png"} alt="NOFY" width={350} height={350} />
+    }
+  </div>);
+
+  let buttons = [];
+  if (ctx.message?.inputText) {
+    buttons.push(
+      <Button key={123} action="tx" target={{ pathname: "/api/mint", query: { nofyId: ctx.message?.inputText.length > 0 ? ctx.message?.inputText : -1 } }} post_url="/mint">
+        Mint
+      </Button>
+    );
+  }
+  buttons.push(
+    <Button key={1234} action="post" target={{ pathname: "/mint" }}>
+      Preview ID
+    </Button>
+  );
+  buttons.push(
+    <Button key={124} action="post" target={{ pathname: "/multipage", query: { pageIndex: 3 } }}>
+      Menu
+    </Button>
+  );
+  buttons.push(
+    <Button key={126} action="post" target={{ pathname: "/multipage", query: { pageIndex: 1 }, }}>
+      Exit
+    </Button>
+  );
+
   return {
-    image: (
-      <div tw="bg-white text-slate-800 w-full px-12 h-full text-center justify-center items-center flex flex-col">
-        <h3 className="text-slate-800 font-lg">
-          Select your NOFY
-        </h3>
-        {
-          ctx.searchParams?.pageIndex === "2" && ctx.message?.inputText ? (
-            <img src={`https://storage.googleapis.com/nof-gamma/T2/${ctx.message?.inputText}.png`} alt="NOFY" width={500} height={500} />
-          ) : <img src={"https://storage.googleapis.com/nof-gamma/T2/inventory.png"} alt="NOFY" width={350} height={350} />
-        }
-      </div>
-    ),
+    image: image,
     imageOptions: {
       aspectRatio: "1:1",
     },
-    buttons: [
-      <Button 
-        key={123}
-        action="tx" 
-        target={{
-            pathname: "/api/mint",
-            query: { nofyId: ctx.message?.inputText.length > 0 ? ctx.message?.inputText : -1 }
-        }}
-
-        post_url="/mint"
-      >
-        Mint
-      </Button>,
-      <Button 
-        key={1234}
-        action="post" 
-        target={{ 
-          pathname: "/mint",
-          query: { pageIndex: 2 }, 
-        }}
-      >
-        Preview ID
-      </Button>,
-      <Button
-        key={124}
-        action="post"
-        target={{
-          pathname: "/multipage",
-          query: { pageIndex: 3 }
-        }}
-      >
-        Menu
-      </Button>,
-      <Button
-        key={126}
-        action="post"
-        target={{
-          pathname: "/multipage",
-          query: { pageIndex: 1 },
-        }}
-      >
-        Exit
-      </Button>,
-    ],
+    buttons: buttons,
     textInput: "NOFY ID",
   };
 });
