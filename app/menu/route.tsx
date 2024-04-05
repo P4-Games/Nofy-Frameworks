@@ -25,8 +25,8 @@ const handleRequest = frames(async (ctx: any) => {
       <h1>General information</h1>
       <p>Nick: {res?.nick}</p>
       <p>Collected nofys: {res?.charactersInInventory ?? ""} out of 120</p>
-      <p>Progress: {res?.inventoryCompletion ?? "0%"}</p>
-      <p>Your position in the ranking: {res?.ranking} out of {res?.usersRegistered} registered users.</p>
+      <p>Progress: {res?.inventoryCompletion ?? "0%"}%</p>
+      <p>Position in the ranking: {res?.ranking} out of {res?.usersRegistered} registered users.</p>
       <p>Total number of NOFYs collected by all users: {res?.charactersCaptured}</p>
   </div>
     ),
