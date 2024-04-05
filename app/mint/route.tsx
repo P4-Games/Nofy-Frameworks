@@ -17,6 +17,8 @@ const handleRequest = frames(async (ctx) => {
       ),
       imageOptions: {
         aspectRatio: "1:1",
+        width: 500,
+        height: 500,
       },
       buttons: [
         <Button
@@ -34,14 +36,14 @@ const handleRequest = frames(async (ctx) => {
   }
 
   let image = (<div tw="bg-white text-slate-800 w-full px-12 h-full text-center justify-center items-center flex flex-col">
-    <h3 className="text-slate-800 font-lg">
-      Select your NOFY
-    </h3>
     {
       ctx.message?.inputText ? (
-        <img src={`https://storage.googleapis.com/nof-gamma/T2/${ctx.message?.inputText}.png`} alt="NOFY" width={500} height={500} />
+        <img src={`https://storage.googleapis.com/nof-gamma/T2/${ctx.message?.inputText}.png`} alt="NOFY" width={400} height={400} />
       ) : <img src={"https://storage.googleapis.com/nof-gamma/T2/inventory.png"} alt="NOFY" width={350} height={350} />
     }
+    <h3 tw="text-slate-800 text-3xl">
+      Select your NOFY
+    </h3>
   </div>);
 
   let buttons = [];
@@ -58,13 +60,13 @@ const handleRequest = frames(async (ctx) => {
     </Button>
   );
   buttons.push(
-    <Button key={124} action="post" target={{ pathname: "/multipage", query: { pageIndex: 3 } }}>
+    <Button key={124} action="post" target={{ pathname: "/menu" }}>
       Menu
     </Button>
   );
   buttons.push(
-    <Button key={126} action="post" target={{ pathname: "/multipage", query: { pageIndex: 1 }, }}>
-      Exit
+    <Button key={126} action="post" target={{ pathname: "/start" }}>
+      Home
     </Button>
   );
 
@@ -72,6 +74,8 @@ const handleRequest = frames(async (ctx) => {
     image: image,
     imageOptions: {
       aspectRatio: "1:1",
+      width: 500,
+      height: 500,
     },
     buttons: buttons,
     textInput: "NOFY ID",
