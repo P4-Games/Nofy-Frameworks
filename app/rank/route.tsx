@@ -18,10 +18,11 @@ const handleRequest = frames(async () => {
 
   // Generar el texto con los detalles de los usuarios
   let userListText = "\n";
-  res?.usersRank.forEach((user:any, index:any) => {
-    const position = index + 1;
-    userListText += `${position}.- ${user.Nick} - Nofys Collected: ${user.Characters}\n`;
-  });
+  for (let i = 0; i < 10; i++) {
+    const user = res.usersRank[i];
+    const position = i + 1;
+    userListText += `${position}.- ${user?.Nick ?? "N/A"} - Nofys Collected: ${user?.Characters ?? "N/A"}\n`;
+  }
 
   return {
     image: 
