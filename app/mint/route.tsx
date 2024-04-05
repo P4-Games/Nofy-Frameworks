@@ -7,7 +7,7 @@ const frames = createFrames({
   basePath: "/",
 });
 
-const handleRequest = frames(async (ctx) => {
+const handleRequest = frames(async (ctx: any) => {
   if (ctx.message?.transactionId) {
     return {
       image: (
@@ -46,7 +46,7 @@ const handleRequest = frames(async (ctx) => {
     </h3>
   </div>);
 
-  let buttons = [];
+  let buttons: any= [];
   if (ctx.message?.inputText) {
     buttons.push(
       <Button key={123} action="tx" target={{ pathname: "/api/mint", query: { nofyId: ctx.message?.inputText.length > 0 ? ctx.message?.inputText : -1 } }} post_url="/mint">

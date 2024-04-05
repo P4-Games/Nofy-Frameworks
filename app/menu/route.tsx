@@ -22,7 +22,7 @@ const handleRequest = frames(async (ctx: any) => {
   return {
     image: (
       <div tw="flex flex-col text-base w-full h-full p-12 bg-white text-slate-800 ">
-      <h1>General information</h1>
+      <h1 tw="text-center justify-center">General information</h1>
       <p>Nick: {res?.nick}</p>
       <p>Collected nofys: {res?.charactersInInventory ?? ""} out of 120</p>
       <p>Progress: {res?.inventoryCompletion ?? "0%"}%</p>
