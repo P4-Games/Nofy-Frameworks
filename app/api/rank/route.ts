@@ -10,9 +10,11 @@ const getUsersRank = async () => {
 
     // Obtener todos los usuarios
     const userRanking = await usersCollection.find().toArray()
+    console.log(userRanking)
 
     // Limitar el ranking a los primeros 10 jugadores
     const limitedRanking = userRanking.slice(0, 10)
+    console.log(limitedRanking)
 
     // Crear el objeto de ranking con la posición como clave
     const rankingByPosition: Record<string, any> = {};
