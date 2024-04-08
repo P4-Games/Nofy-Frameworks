@@ -33,6 +33,6 @@ export const InventoryButtons: AllowedButtonsArray = [
             query: { pageIndex: 1 },
         }}
     >
-        Exit
+        Home
     </Button>,
 ];

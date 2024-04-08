@@ -40,6 +40,6 @@ export const MintButtons: AllowedButtonsArray = [
             query: { pageIndex: 1 },
         }}
     >
-        Exit
+        Home
     </Button>,
 ];

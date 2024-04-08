@@ -31,6 +31,6 @@ export const RankingButtons: AllowedButtonsArray = [
             query: { pageIndex: 1 },
         }}
     >
-        Exit
+        Home
     </Button>,
 ];

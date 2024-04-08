@@ -33,6 +33,6 @@ export const MissingButtons: AllowedButtonsArray = [
             query: { pageIndex: 1 },
         }}
     >
-        Exit
+        Home
     </Button>,
 ];
