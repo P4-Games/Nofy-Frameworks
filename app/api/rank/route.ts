@@ -34,14 +34,11 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
     try {
         // Obtener el ranking de los usuarios
-        const usersRank = await getUsersRank()
+        const res = await getUsersRank();
 
         // Enviar el ranking de los usuarios como respuesta
-        return NextResponse.json({
-            usersRank,
-        }, {
-            status: 200
-        })
+        return NextResponse.json(res)
+        
     } catch (error) {
         // Manejar los errores
         return NextResponse.json({
