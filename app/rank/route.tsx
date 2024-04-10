@@ -20,20 +20,20 @@ const handleRequest = frames(async () => {
   return {
 
     image: 
-      <div tw="flex flex-col text-base w-full h-full p-12 bg-white text-slate-800 ">
-        <h1 tw="text-center justify-center">TOP 10 RANKING</h1>
-        <p></p>
-        <p>1.- {res?.usersRank[1].Nick} - Nofys Collected: {res?.usersRank[1].Characters}</p>
-        <p>2.- {res?.usersRank[2].Nick} - Nofys Collected: {res?.usersRank[2].Characters}</p>
-        <p>3.- {res?.usersRank[3].Nick} - Nofys Collected: {res?.usersRank[3].Characters}</p>
-        <p>4.- {res?.usersRank[4].Nick} - Nofys Collected: {res?.usersRank[4].Characters}</p>
-        <p>5.- {res?.usersRank[5].Nick} - Nofys Collected: {res?.usersRank[5].Characters}</p>
-        <p>6.- {res?.usersRank[6].Nick} - Nofys Collected: {res?.usersRank[6].Characters}</p>
-        <p>7.- {res?.usersRank[7].Nick} - Nofys Collected: {res?.usersRank[7].Characters}</p>
-        <p>8.- {res?.usersRank[8].Nick} - Nofys Collected: {res?.usersRank[8].Characters}</p>
-        <p>9.- {res?.usersRank[9].Nick} - Nofys Collected: {res?.usersRank[9].Characters}</p>
-        <p>10.- {res?.usersRank[10].Nick} - Nofys Collected: {res?.usersRank[10].Characters}</p>
-      </div>,
+    <div tw="flex flex-col text-base w-full h-full p-12 bg-white text-slate-800 ">
+    <h1 tw="text-center justify-center">TOP 10 RANKING</h1>
+    <p></p>
+    <p>1.- {res.usersRank[1]?.Nick} - Nofys Collected: {res.usersRank[1]?.Characters}</p>
+    <p>2.- {res.usersRank[2]?.Nick} - Nofys Collected: {res.usersRank[2]?.Characters}</p>
+    <p>3.- {res.usersRank[3]?.Nick} - Nofys Collected: {res.usersRank[3]?.Characters}</p>
+    <p>4.- {res.usersRank[4]?.Nick} - Nofys Collected: {res.usersRank[4]?.Characters}</p>
+    <p>5.- {res.usersRank[5]?.Nick} - Nofys Collected: {res.usersRank[5]?.Characters}</p>
+    <p>6.- {res.usersRank[6]?.Nick} - Nofys Collected: {res.usersRank[6]?.Characters}</p>
+    <p>7.- {res.usersRank[7]?.Nick} - Nofys Collected: {res.usersRank[7]?.Characters}</p>
+    <p>8.- {res.usersRank[8]?.Nick} - Nofys Collected: {res.usersRank[8]?.Characters}</p>
+    <p>9.- {res.usersRank[9]?.Nick} - Nofys Collected: {res.usersRank[9]?.Characters}</p>
+    <p>10.- {res.usersRank[10]?.Nick} - Nofys Collected: {res.usersRank[10]?.Characters}</p>
+  </div>,
 
     imageOptions: {
       aspectRatio: "1:1",
