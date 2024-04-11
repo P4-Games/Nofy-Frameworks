@@ -18,7 +18,7 @@ const handleRequest = frames(async (ctx: any) => {
             <h2 > 
             Missing
             </h2>
-        <img src={`${process.env.DOMAIN_URL}/api/missing?discordId=${userId}`} alt="Image" width={350} height={350}/>
+        <img src={`${process.env.DOMAIN_URL}/api/missing?discordId=${userId}`} alt="Image" width={400} height={350}/>
       </div>
     ),
     imageOptions: {
