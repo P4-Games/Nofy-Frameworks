@@ -2,29 +2,7 @@
 /* eslint-disable react/jsx-key */
 import { Button } from "frames.js/next";
 import { createFrames } from "frames.js/next";
-import { getUserDataForFid } from "frames.js";
-
-export const createUser = async (fid: string) => {
-    const userData = await getUserDataForFid({ fid: parseInt(fid) });
-
-    const URL = process.env.DOMAIN_URL + "/api/start";
-
-    const res = await fetch(URL, {
-        method: "POST",
-        body: JSON.stringify({
-            nick: userData?.username,
-            discordID: fid
-        }),
-        headers: {
-            "Content-Type": "application/json"
-        }
-    });
-
-    const data = await res.json();
-
-    return data;
-}
-
+import { createUser } from "@/utils/createUser"; // Importa la función createUser
 
 const frames = createFrames({
   basePath: "/",
@@ -39,6 +17,9 @@ const handleRequest = frames(async (ctx: any) => {
   });
   const res = await response.json();
   console.log(res);
+
+  // Llama a la función createUser con el userId como argumento
+  const userData = await createUser(userId);
 
   return {
     image: (
