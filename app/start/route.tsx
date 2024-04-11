@@ -10,7 +10,7 @@ const frames = createFrames({
 
 const handleRequest = frames(async (ctx: any) => {
   console.log(`collect ${ctx.message?.requesterFid}`);
-  const userId = ctx.message?.requesterFid;
+  const userId = ctx.message?.requesterFid.toString();
 
   const response = await fetch(`${process.env.DOMAIN_URL}/api/status`, {
     method: "GET"
