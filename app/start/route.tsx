@@ -2,6 +2,29 @@
 /* eslint-disable react/jsx-key */
 import { Button } from "frames.js/next";
 import { createFrames } from "frames.js/next";
+import { getUserDataForFid } from "frames.js";
+
+export const createUser = async (fid: string) => {
+    const userData = await getUserDataForFid({ fid: parseInt(fid) });
+
+    const URL = process.env.DOMAIN_URL + "/api/start";
+
+    const res = await fetch(URL, {
+        method: "POST",
+        body: JSON.stringify({
+            nick: userData?.username,
+            discordID: fid
+        }),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    });
+
+    const data = await res.json();
+
+    return data;
+}
+
 
 const frames = createFrames({
   basePath: "/",
@@ -10,7 +33,6 @@ const frames = createFrames({
 const handleRequest = frames(async (ctx: any) => {
   console.log(`collect ${ctx.message?.requesterFid}`);
   const userId = ctx.message?.requesterFid;
-
 
   const response = await fetch(`${process.env.DOMAIN_URL}/api/status`, {
     method: "GET"
